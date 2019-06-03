@@ -1,0 +1,8 @@
+header {
+    background-color: rgb(150, 150, 240);
+}
+span {
+    display: block;
+    text-align: center;
+    padding: 10px 0 5px;
+}
