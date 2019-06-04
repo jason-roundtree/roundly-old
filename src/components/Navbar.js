@@ -1,23 +1,37 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import styled from 'styled-components'
+
+const List = styled.ul`
+  display: flex;
+  justify-content: center;
+  padding: 0 0 5px;
+`
+const ListItem = styled.li`
+  margin: 5px 10px;
+`
 
 export default function Navbar() {
     return (
         <nav role="navigation">
-            <ul>
-                <li>
+            <List>
+                <ListItem>
                     <Link to="/">Home</Link>
-                </li>
-                <li>
+                </ListItem>
+                <ListItem>
                     <Link to="/about">About</Link>
-                </li>
-                <li>
+                </ListItem>
+                <ListItem>
                     <Link to="/signup">Signup</Link>
-                </li>
-                <li>
+                </ListItem>
+                <ListItem>
                     <Link to="/login">Login</Link>
-                </li>
-            </ul>
+                </ListItem>
+                {/* TODO: for now this route serves as what the user will see when logged in */}
+                <ListItem>
+                    <Link to="/account">Account</Link>
+                </ListItem>
+            </List>
         </nav>
     )
 }

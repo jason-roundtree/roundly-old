@@ -1,13 +1,21 @@
 import React from 'react'
 import Navbar from './Navbar'
-// import styles from './Header.module.css'
-import './Header.module.css'
+import styled from 'styled-components'
+
+const MyHeader = styled.header`
+    background-color: rgb(192, 192, 247);
+`
+const Title = styled.span`
+    display: block;
+    text-align: center;
+    padding: 10px 0 5px;
+`
 
 export default function Header() {
     return (
-        <header role="banner">
-            <span>Roundly</span>
+        <MyHeader role="banner">
+            <Title>Roundly</Title>
             <Navbar />
-        </header>
+        </MyHeader>
     )
 }
