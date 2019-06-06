@@ -13,4 +13,13 @@ li {
 a {
   text-decoration: none;
 }
+input, button {
+  border-radius: 3px;
+  padding: 7px 10px;
+  font-size: 1.2em;
+}
+/* table, th, td {
+  border: 1px solid rgb(194, 194, 194);
+  border-collapse: collapse;
+} */
 
