@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import PlayerList from './PlayerList'
-import PointsSettings from './PointsSettings'
+// import PointsSettings from './PointsSettings'
+import PointSettingsList from './PointSettingsList'
 import styled from 'styled-components'
 
+// TODO: add validation
 const Form = styled.form`
-    border: 1px solid black;
-    border-radius: 5px;
     width: 80%;
-    margin: 0 auto;
+    margin: 40px auto 0;
     padding: 20px;
 `
 const Input = styled.input`
     width: 70%;
+    /* min-width: 300px; */
     margin: 10px 0;
     /* TODO: noticed S.O. answers saying line-height should be used but not why. Is it for responsiveness on smaller screens? */
     /* line-height: 140%; */
@@ -22,15 +23,21 @@ const Input = styled.input`
        opacity: 1;
     }
     @media (max-width: 700px) {
-        width: 85%;
+        width: 100%;
     }
 `
 const H2 = styled.h2`
-    margin-top: 10px;
+    margin-top: 20px;
 `
 const InputDate = styled(Input)`
     width: 50%;
 `
+const Button = styled.button`
+    margin-left: 7px;
+    @media (max-width: 550px) {
+        margin-left: 0;
+    }
+` 
 
 export default class NewLeague extends Component {
     constructor(props) {
@@ -44,6 +51,7 @@ export default class NewLeague extends Component {
             pointSettings: []
         }
         this.playerTextInput = React.createRef();
+        this.pointTypeInput = React.createRef();
     }
     
     handleInputChange = e => {
@@ -68,9 +76,10 @@ export default class NewLeague extends Component {
         e.preventDefault()
         e.stopPropagation()
         this.setState({
-            pointSettings: [...pointSettings, pointType]
+            pointSettings: [...pointSettings, pointType],
+            pointType: ''
         })
-        // this..current.focus()
+        this.pointTypeInput.current.focus()
     }
     render() {
         console.log('NewLeague State: ', this.state)
@@ -105,7 +114,7 @@ export default class NewLeague extends Component {
                         placeholder="Player Name"
                         ref={this.playerTextInput}
                     />
-                    <button onClick={this.addPlayer}>Add</button>
+                    <Button onClick={this.addPlayer}>Add</Button>
                     <PlayerList players={this.state.players}/>
 
                     <H2>Points Settings</H2>
@@ -115,9 +124,12 @@ export default class NewLeague extends Component {
                         onChange={this.handleInputChange}
                         value={this.state.pointType}
                         placeholder="Point Type"
-                        // ref={this.playerTextInput}
+                        ref={this.pointTypeInput}
                     />
-                    <button onClick={this.addPointSetting}>Add</button>
+                    <Button onClick={this.addPointSetting}>Add</Button>
+                    <PointSettingsList 
+                        point={this.state.pointSettings} 
+                    />
 
                 </Form>
             </div>
