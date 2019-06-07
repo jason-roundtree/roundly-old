@@ -9,13 +9,14 @@ const Form = styled.form`
     width: 80%;
     margin: 40px auto 0;
     padding: 20px;
+    position: relative;
 `
 const Input = styled.input`
     width: 70%;
     /* min-width: 300px; */
     margin: 10px 0;
     /* TODO: noticed S.O. answers saying line-height should be used but not why. Is it for responsiveness on smaller screens? */
-    /* line-height: 140%; */
+    line-height: 140%;
     font-size: 1.2em;
     border: 1px solid rgb(191, 192, 196);
     &::placeholder {
@@ -32,12 +33,16 @@ const H2 = styled.h2`
 const InputDate = styled(Input)`
     width: 50%;
 `
-const Button = styled.button`
-    margin-left: 7px;
-    @media (max-width: 550px) {
-        margin-left: 0;
-    }
-` 
+// const Button = styled.button`
+//     margin-left: 7px;
+//     @media (max-width: 550px) {
+//         margin-left: 0;
+//     }
+// ` 
+const SaveButton = styled.button`
+    position: absolute;
+    right: 0; 
+`
 
 export default class NewLeague extends Component {
     constructor(props) {
@@ -75,11 +80,27 @@ export default class NewLeague extends Component {
         const { pointSettings, pointType } = this.state
         e.preventDefault()
         e.stopPropagation()
+        const pointSetting = {
+            type: pointType,
+            weight: 0
+        }
         this.setState({
-            pointSettings: [...pointSettings, pointType],
+            pointSettings: [...pointSettings, pointSetting],
             pointType: ''
         })
         this.pointTypeInput.current.focus()
+    }
+    deletePointSetting = pointType => {
+        // console.log('pointType: ', pointType)
+        const pointSettings = this.state.pointSettings
+        for (let point in pointSettings) {
+            // console.log('pointSettings[point]: ', pointSettings[point])
+            if (pointSettings[point].type === pointType) {
+                this.setState({
+                    pointSettings: pointSettings.filter(point => point.type !== pointType)
+                })
+            }
+        }
     }
     render() {
         console.log('NewLeague State: ', this.state)
@@ -94,7 +115,6 @@ export default class NewLeague extends Component {
                         value={this.state.leagueName}
                         placeholder="League Name"
                     />
-                    <br />
                     
                     <InputDate 
                         type="date"
@@ -104,7 +124,6 @@ export default class NewLeague extends Component {
                         // TODO: Set this up to show End Date when input isn't focused
                         placeholder="End Date"
                     />
-                    <br />
                     
                     <Input 
                         type="text"
@@ -114,7 +133,8 @@ export default class NewLeague extends Component {
                         placeholder="Player Name"
                         ref={this.playerTextInput}
                     />
-                    <Button onClick={this.addPlayer}>Add</Button>
+                    <br />
+                    <button onClick={this.addPlayer}>Add</button>
                     <PlayerList players={this.state.players}/>
 
                     <H2>Points Settings</H2>
@@ -126,11 +146,14 @@ export default class NewLeague extends Component {
                         placeholder="Point Type"
                         ref={this.pointTypeInput}
                     />
-                    <Button onClick={this.addPointSetting}>Add</Button>
+                    <br />
+                    <button onClick={this.addPointSetting}>Add</button>
                     <PointSettingsList 
-                        point={this.state.pointSettings} 
+                        pointSettings={this.state.pointSettings} 
+                        deletePoint={this.deletePointSetting}
                     />
-
+                
+                <SaveButton>Save League</SaveButton>
                 </Form>
             </div>
         )
