@@ -16,7 +16,12 @@ const PointInput = styled.input`
     width: 80px;
     border: transparent;
 `
-const P = styled.p` width: 300px; `
+const P = styled.p` 
+    width: 300px; 
+    @media (max-width: 700px) {
+        font-size: .75em;
+    }
+`
 const IMG = styled.img`
     &:hover { cursor: pointer; }
 `
@@ -38,7 +43,7 @@ export default function PointSettingsList(props) {
                         <IMG 
                             src={trash} 
                             alt="Trash can icon"
-                            height="30"
+                            height="25"
                             onClick={() => props.deletePoint(point.type)}
                         />
                     </ListItem>

@@ -9,15 +9,17 @@ const Form = styled.form`
     width: 80%;
     margin: 40px auto 0;
     padding: 20px;
-    position: relative;
+    /* TODO: something weird with button styling because of this */
+    /* @media (max-width: 700px) {
+        
+    } */
 `
 const Input = styled.input`
     width: 70%;
     /* min-width: 300px; */
     margin: 10px 0;
     /* TODO: noticed S.O. answers saying line-height should be used but not why. Is it for responsiveness on smaller screens? */
-    line-height: 140%;
-    font-size: 1.2em;
+    /* line-height: 140%; */
     border: 1px solid rgb(191, 192, 196);
     &::placeholder {
        color: rgb(191, 192, 196);
@@ -40,8 +42,7 @@ const InputDate = styled(Input)`
 //     }
 // ` 
 const SaveButton = styled.button`
-    position: absolute;
-    right: 0; 
+    margin-top: 1.2em;
 `
 
 export default class NewLeague extends Component {
@@ -91,10 +92,8 @@ export default class NewLeague extends Component {
         this.pointTypeInput.current.focus()
     }
     deletePointSetting = pointType => {
-        // console.log('pointType: ', pointType)
         const pointSettings = this.state.pointSettings
         for (let point in pointSettings) {
-            // console.log('pointSettings[point]: ', pointSettings[point])
             if (pointSettings[point].type === pointType) {
                 this.setState({
                     pointSettings: pointSettings.filter(point => point.type !== pointType)
@@ -134,7 +133,7 @@ export default class NewLeague extends Component {
                         ref={this.playerTextInput}
                     />
                     <br />
-                    <button onClick={this.addPlayer}>Add</button>
+                    <button onClick={this.addPlayer}>Add Player</button>
                     <PlayerList players={this.state.players}/>
 
                     <H2>Points Settings</H2>
@@ -147,7 +146,7 @@ export default class NewLeague extends Component {
                         ref={this.pointTypeInput}
                     />
                     <br />
-                    <button onClick={this.addPointSetting}>Add</button>
+                    <button onClick={this.addPointSetting}>Add Point</button>
                     <PointSettingsList 
                         pointSettings={this.state.pointSettings} 
                         deletePoint={this.deletePointSetting}
