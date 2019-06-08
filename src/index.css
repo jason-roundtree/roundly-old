@@ -15,9 +15,12 @@ a {
   text-decoration: none;
 }
 input, button {
-  border-radius: 3px;
   padding: 7px 10px;
   font-size: 1em;
+}
+button {
+  border-radius: 3px;
+  border: 1px solid rgb(191, 192, 196);
 }
 /* @media (min-width: 700px) {
   * {

@@ -34,6 +34,7 @@ export default function PointSettingsList(props) {
                 return (
                     <ListItem
                         key={null}
+                        tabindex="0"
                     >
                         <P>{point.type}</P>
                         <PointInput

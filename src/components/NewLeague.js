@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PlayerList from './PlayerList'
 // import PointsSettings from './PointsSettings'
 import PointSettingsList from './PointSettingsList'
+import NewLeagueList from './NewLeagueList'
 import styled from 'styled-components'
 
 // TODO: add validation
@@ -20,7 +21,8 @@ const Input = styled.input`
     margin: 10px 0;
     /* TODO: noticed S.O. answers saying line-height should be used but not why. Is it for responsiveness on smaller screens? */
     /* line-height: 140%; */
-    border: 1px solid rgb(191, 192, 196);
+    border: transparent;
+    border-bottom: 1px solid rgb(191, 192, 196);
     &::placeholder {
        color: rgb(191, 192, 196);
        opacity: 1;
@@ -92,14 +94,14 @@ export default class NewLeague extends Component {
         this.pointTypeInput.current.focus()
     }
     deletePointSetting = pointType => {
-        const pointSettings = this.state.pointSettings
-        for (let point in pointSettings) {
-            if (pointSettings[point].type === pointType) {
-                this.setState({
-                    pointSettings: pointSettings.filter(point => point.type !== pointType)
-                })
-            }
-        }
+        this.setState({
+            pointSettings: this.state.pointSettings.filter(point => point.type !== pointType)
+        })
+    }
+    deletePlayer = player => {
+        this.setState({
+            players: this.state.players.filter(_player => _player !== player)
+        })
     }
     render() {
         console.log('NewLeague State: ', this.state)
@@ -113,6 +115,7 @@ export default class NewLeague extends Component {
                         onChange={this.handleInputChange}
                         value={this.state.leagueName}
                         placeholder="League Name"
+                        
                     />
                     
                     <InputDate 
@@ -133,8 +136,16 @@ export default class NewLeague extends Component {
                         ref={this.playerTextInput}
                     />
                     <br />
-                    <button onClick={this.addPlayer}>Add Player</button>
-                    <PlayerList players={this.state.players}/>
+                    <button 
+                        type="button"
+                        onClick={this.addPlayer} 
+                    >
+                        Add Player
+                    </button>
+                    <PlayerList 
+                        players={this.state.players}
+                        deletePlayer={this.deletePlayer}
+                    />
 
                     <H2>Points Settings</H2>
                     <Input 
@@ -146,13 +157,22 @@ export default class NewLeague extends Component {
                         ref={this.pointTypeInput}
                     />
                     <br />
-                    <button onClick={this.addPointSetting}>Add Point</button>
+                    <button 
+                        type="button"
+                        onClick={this.addPointSetting} 
+                    >
+                        Add Point
+                    </button>
                     <PointSettingsList 
                         pointSettings={this.state.pointSettings} 
                         deletePoint={this.deletePointSetting}
                     />
                 
-                <SaveButton>Save League</SaveButton>
+                    <SaveButton 
+                        onSubmit={null} 
+                    >
+                        Save League
+                    </SaveButton>
                 </Form>
             </div>
         )
