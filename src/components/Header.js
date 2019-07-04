@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import styled from 'styled-components'
 
 const StyledHeader = styled.header`
-    background-color: rgb(192, 192, 247);
+    background-color: rgb(188, 255, 181);
 `
 const Title = styled.span`
     display: block;

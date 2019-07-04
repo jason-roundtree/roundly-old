@@ -5,7 +5,7 @@ import Login from './Login'
 import Signup from './Signup'
 import Header from './Header'
 import AccountHome from './AccountHome'
-import NewLeague from './NewLeague'
+import NewLeague from './NewLeague/NewLeague'
 // import LeagueHome from './LeagueHome'
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
