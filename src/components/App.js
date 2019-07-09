@@ -7,6 +7,7 @@ import Header from './Header'
 import AccountHome from './AccountHome'
 import NewLeague from './NewLeague/NewLeague'
 // import LeagueHome from './LeagueHome'
+import AuthCallback from './AuthCallback';
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       <Route path="/account" component={AccountHome} />
       <Route path="/new-league" component={NewLeague} />
       {/* <Route path="/league/:id" component={LeagueHome} /> */}
+      <Route exact path='/callback' component={AuthCallback} />
     </Router>
   )
 }

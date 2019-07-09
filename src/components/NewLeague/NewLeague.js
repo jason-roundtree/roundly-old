@@ -72,7 +72,7 @@ export default class NewLeague extends Component {
         this.setState({ [id]: value })
     }
     // TODO: good way to make the next 4 functions DRY??
-    addPlayer = e => {
+    addPlayer = () => {
         const { players, playerName } = this.state
         this.setState({
             players: [...players, playerName],

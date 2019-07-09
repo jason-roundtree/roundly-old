@@ -1,6 +1,7 @@
-import React from 'react'
-import { Link } from "react-router-dom"
-import styled from 'styled-components'
+import React from 'react';
+import { Link, withRouter } from "react-router-dom";
+import styled from 'styled-components';
+import auth0Client from './Auth';
 
 const List = styled.ul`
   display: flex;
@@ -10,8 +11,11 @@ const List = styled.ul`
 const ListItem = styled.li`
   margin: 5px 10px;
 `
-
-export default function Navbar() {
+function Navbar(props) {
+    const signOut = () => {
+        auth0Client.signOut();
+        props.history.replace('/');
+    };
     return (
         <nav role="navigation">
             <List>
@@ -21,17 +25,36 @@ export default function Navbar() {
                 <ListItem>
                     <Link to="/about">About</Link>
                 </ListItem>
-                <ListItem>
+                {/* <ListItem>
                     <Link to="/signup">Signup</Link>
-                </ListItem>
-                <ListItem>
-                    <Link to="/login">Login</Link>
-                </ListItem>
-                {/* TODO: for now this route serves as what the user will see when logged in */}
-                <ListItem>
-                    <Link to="/account">Account</Link>
-                </ListItem>
+                </ListItem> */}
+                {!auth0Client.isAuthenticated() &&
+                    <button
+                        onClick={auth0Client.signIn}
+                    >
+                        Sign-in
+                    </button>
+                }
+                {auth0Client.isAuthenticated() &&
+                    <div>
+                        <ListItem>
+                            <Link to="/account">Account</Link>
+                        </ListItem>
+                        <label>
+                            {auth0Client.getProfile().name} 
+                        </label>
+                        <button
+                            onClick={() => signOut()}
+                        >
+                            Sign-Out
+                        </button>
+                    </div>
+                    
+                }
+                
             </List>
         </nav>
-    )
+    );
 }
+
+export default withRouter(Navbar);
