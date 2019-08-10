@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import useListItemToggle from '../../hooks/useListItemToggle'
 import useInput from '../../hooks/useInput'
 import styled from 'styled-components'
@@ -35,11 +35,14 @@ const InputDate = styled(Input)`
 const ListItem = styled.li`
     padding: 10px;
     margin: 5px;
-    border: 1px solid black;
+    border: 1px solid rgb(122, 213, 178);;
     width: 50%;
     @media (max-width: 700px) {
         width: 100%;
     }
+`
+const SaveButton = styled.button`
+    margin-top: 1.2em;
 `
 // const P = styled.p`
 //     font-style: italic;
@@ -50,14 +53,31 @@ export default function CreateRound() {
     const [inputValues, setInputValue] = useInput({
         roundDate: '', course: '', roundName: ''
     })
+
+    const [inputFocused, setInputFocus] = useState(false)
+    const inputRef = useRef()
+    function focusInput() {
+        inputRef.current.focus()
+        setInputFocus(true)
+    }
+    function blurInput() {
+        inputRef.current.blur()
+        setInputFocus(false)
+    }
     // console.log('inputValues: ', inputValues)
-    console.log('activePlayers: ', activePlayers)
+    // console.log('activePlayers: ', activePlayers)
     return (
         <div>
-            <Form>
+            <Form 
+                // TODO: setup axios post request
+                // onSubmit={}
+            >
                 <h1>Create New Round</h1>
                 <InputDate 
-                    type="date"
+                    type={inputFocused ? 'date' : 'text'}
+                    ref={inputRef}
+                    onFocus={focusInput}
+                    onBlur={blurInput}
                     onChange={setInputValue}
                     value={inputValues.roundDate}
                     name="roundDate"
@@ -97,7 +117,7 @@ export default function CreateRound() {
                     })}
                 </ul>
 
-                <button>Save Round</button>
+                <SaveButton>Save Round</SaveButton>
             </Form>
         </div>
     )
