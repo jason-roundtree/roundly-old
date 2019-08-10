@@ -6,7 +6,7 @@ import Signup from './Signup'
 import Header from './Header'
 import AccountHome from './AccountHome'
 import NewLeague from './NewLeague/NewLeague'
-// import LeagueHome from './LeagueHome'
+import CreateRound from './LeagueHome/CreateRound'
 import AuthCallback from './AuthCallback';
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
@@ -20,6 +20,7 @@ const App = () => {
       <Route path="/signup" component={Signup} />
       <Route path="/account" component={AccountHome} />
       <Route path="/new-league" component={NewLeague} />
+      <Route path="/create-round" component={CreateRound} />
       {/* <Route path="/league/:id" component={LeagueHome} /> */}
       <Route exact path='/callback' component={AuthCallback} />
     </Router>

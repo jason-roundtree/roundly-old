@@ -1,0 +1,104 @@
+import React from 'react'
+import useListItemToggle from '../../hooks/useListItemToggle'
+import useInput from '../../hooks/useInput'
+import styled from 'styled-components'
+import { players } from '../../db'
+import '../../index.css'
+
+const Form = styled.form`
+    width: 80%;
+    margin: 40px auto 0;
+    padding: 20px;
+`
+const Input = styled.input`
+    width: 60%;
+    /* min-width: 300px; */
+    margin: 10px 0;
+    /* TODO: noticed S.O. answers saying line-height should be used but not why. Is it for responsiveness on smaller screens? */
+    /* line-height: 140%; */
+    border: transparent;
+    border-bottom: 1px solid rgb(191, 192, 196);
+    &::placeholder {
+       color: rgb(191, 192, 196);
+       opacity: 1;
+    }
+    @media (max-width: 700px) {
+        width: 100%;
+    }
+`
+const H2 = styled.h2`
+    margin-top: 20px;
+`
+const InputDate = styled(Input)`
+    width: 40%;
+`
+const ListItem = styled.li`
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid black;
+    width: 50%;
+    @media (max-width: 700px) {
+        width: 100%;
+    }
+`
+// const P = styled.p`
+//     font-style: italic;
+// `
+
+export default function CreateRound() {
+    const [activePlayers, setToggleActivePlayer] = useListItemToggle([])
+    const [inputValues, setInputValue] = useInput({
+        roundDate: '', course: '', roundName: ''
+    })
+    // console.log('inputValues: ', inputValues)
+    console.log('activePlayers: ', activePlayers)
+    return (
+        <div>
+            <Form>
+                <h1>Create New Round</h1>
+                <InputDate 
+                    type="date"
+                    onChange={setInputValue}
+                    value={inputValues.roundDate}
+                    name="roundDate"
+                    placeholder="Round Date"
+                />
+                <br />
+
+                <Input 
+                    type="text"
+                    onChange={setInputValue}
+                    value={inputValues.course}
+                    name="course"
+                    placeholder="Course"
+                />
+                <br />
+
+                <Input 
+                    type="text"
+                    onChange={setInputValue}
+                    value={inputValues.roundName}
+                    name="roundName"
+                    placeholder="Round Name"
+                />
+
+                <H2>Select Players to Activate for this Round</H2>
+                <ul>
+                    {players.map(player => {
+                        return (
+                            <ListItem
+                                key={player.id}
+                                onClick={() => setToggleActivePlayer(player.id)}
+                                className={activePlayers.includes(player.id) ? 'activeListItem' : ''}
+                            >
+                                {player.name}
+                            </ListItem>
+                        )
+                    })}
+                </ul>
+
+                <button>Save Round</button>
+            </Form>
+        </div>
+    )
+}

@@ -22,6 +22,9 @@ button {
   border-radius: 3px;
   border: 1px solid rgb(191, 192, 196);
 }
+.activeListItem {
+  background-color: rgb(149, 237, 203);
+}
 /* @media (min-width: 700px) {
   * {
     font-size: 1em;
