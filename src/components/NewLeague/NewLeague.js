@@ -55,18 +55,15 @@ export default class NewLeague extends Component {
             players: [],
             pointType: '',
             pointSettings: [],
-            dateInputFocused: false
+            dateInputFocused: false,
         }
         this.playerTextInput = React.createRef();
         this.pointTypeInput = React.createRef();
     }
-    onFocus = () => {
-        this.setState({ dateInputFocused: true })
-    }
+    onFocus = () => this.setState({ dateInputFocused: true })
 
-    onBlur = () => {
-        this.setState({ dateInputFocused: false })
-    }
+    onBlur = () => this.setState({ dateInputFocused: false })
+
     handleInputChange = e => {
         const { id, value } = e.target
         this.setState({ [id]: value })
@@ -107,9 +104,11 @@ export default class NewLeague extends Component {
         })
     }
    
+    // TODO: implement
     onSubmit = () => {
 
     }
+
     render() {
         console.log('NewLeague State: ', this.state)
         return (
@@ -146,6 +145,7 @@ export default class NewLeague extends Component {
                     <button 
                         type="button"
                         onClick={this.addPlayer} 
+                        disabled={this.state.playerName === ''}
                     >
                         Add Player
                     </button>
@@ -168,6 +168,7 @@ export default class NewLeague extends Component {
                     <button 
                         type="button"
                         onClick={this.addPointSetting} 
+                        disabled={this.state.pointType === ''}
                     >
                         Add Point
                     </button>
