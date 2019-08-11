@@ -3,7 +3,6 @@ import useListItemToggle from '../../hooks/useListItemToggle'
 import useInput from '../../hooks/useInput'
 import styled from 'styled-components'
 import { players } from '../../db'
-import '../../index.css'
 
 const Form = styled.form`
     width: 80%;
@@ -109,7 +108,10 @@ export default function CreateRound() {
                             <ListItem
                                 key={player.id}
                                 onClick={() => setToggleActivePlayer(player.id)}
-                                className={activePlayers.includes(player.id) ? 'activeListItem' : ''}
+                                className={activePlayers.includes(player.id) 
+                                    ? 'activeListItem' 
+                                    : ''
+                                }
                             >
                                 {player.name}
                             </ListItem>

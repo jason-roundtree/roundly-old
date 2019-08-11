@@ -25,6 +25,11 @@ button {
 button:hover {
   cursor: pointer;
 }
+table, tr, td {
+  border: 1px solid rgb(191, 192, 196);
+  border-collapse: collapse;
+  padding: 5px 10px;
+}
 .activeListItem {
   background-color: rgb(149, 237, 203);
 }
