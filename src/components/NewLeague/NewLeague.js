@@ -155,7 +155,7 @@ export default class NewLeague extends Component {
                     />
 
                     <H2>Points Settings</H2>
-                    <P>e.g. Eagle, Birdie, Par, Bogey, Break Rule, Swear, Throw/Slam Club, etc.</P>
+                    <P>e.g. Eagle, Birdie, Par, Bogey, Break a Rule, Swear, Throw/Slam Club, you can get creative, etc.</P>
                     <Input 
                         type="text"
                         id="pointType"
