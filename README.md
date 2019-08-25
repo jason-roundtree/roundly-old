@@ -1,68 +1,21 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## User stories / app flow
 
-## Available Scripts
+- User can create account (and they need to in order to use the app)
+- User can reset password
+- User can create a League and invite other players
+  - A League is just a general container for the players in the League. Once a League is created you'll have to create a Season to actually record Rounds played and points accrued
+  - The User that created the league has admin access that allow various season-editing priveleges but this person may give authorization to other league members
+- An authorized User can create a Season and give it a name (optional), start date (optional), end date (can be set to indefinite), set active players and setup the different Point Settings 
+  - Point Settings are sort of general/default point settings for a Season but these settings can be edited on a round-to-round basis
+  - Point Settings can be copied from one Season into another Season of the same League
+      - TENTATIVE/POST-MVP: Point Settings can be copied from one Season into the Season of a different League, assuming that the User that is setting up the other Season is authorized in both leagues 
+  - Point Settings for a Season may be edited by authorized User but if so, the changes will be re-applied to all completed rounds in which those settings were applied
+  - Point Settings for a Round may be edited by authorized User after the points have been set and even after a Round has been completed. 
+    - **TODO??:** Ideally the different Point Setting criteria will be tallied for each Player through the App but maybe the authorized users should be allowed to just enter total points accrued for each player in the event that the players choose to track points manually (i.e. not directly on phone/device)
+- An authorized User can create a Round, in which points will be allocated according to Point Settings criteria
+  - Round data includes round name, round date, round players and round point settings. Point Settings are inherited from the Season Point Settings but can be edited or deleted on an individual basis or new settings can be added
+  - The Rounds can be set for the future or the past
+  - **TODO??:** In addition to tracking points for custom criteria, maybe also allow actual golf scores for each player to be recorded on a hole-by-hole basis. Maybe it can also factor in player handicap for Net score and you can also easily record which holes the various Point Setting accomplishments were achieved
+- Points accrued during the individual rounds will be tallied, sorted and shown on a leaderboard on the Season page
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**TODO??:** Finish these User Stories and README
