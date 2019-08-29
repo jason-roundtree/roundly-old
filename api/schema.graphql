@@ -1,0 +1,234 @@
+type Query {
+    userLeagues(userId: ID!): [League!]!
+    # TODO: do other User queries need to go here for auth or anything else?
+    league(leagueId: ID!): League!
+    scheduledRounds(leagueId: ID!): [Round!]!
+    completedRounds(leagueId: ID!): [Round!]!
+    player(playerId: ID!): LeaguePlayer!
+    playerRound(playerId: ID!): PlayerRound!
+    leaguePointSettings(leagueId: ID!): leaguePointSettings!
+    roundPointSettings(roundId: ID!): RoundPointSetting!
+    pointsEarned(query: String): [PointEarned!]
+}
+ 
+type Mutation {
+    # TODO: For all of these that currently takes an ID as the first arg - When should ID be it's own argument as opposed to being part of the data: input??
+    # User 
+    createUser(data: CreateUserInput!): AuthPayload!
+    loginUser(email: String!, password: String!): AuthPayload!
+    updateUser(data: UpdateUserInput!): User!
+    # League  (must be authorizedAsAdmin to change league settings)
+    createLeague(data: CreateLeagueInput!) League!
+    deleteLeague(leagueId: ID!)
+    updateBasicLeagueInfo(leagueId: ID!, data: UpdateBasicLeagueInput):
+
+    createLeaguePointSetting(leagueId: ID!, data: CreateLeaguePointSettingInput):
+    updateLeaguePointSetting(leagueId: ID!, data: UpdateLeaguePointSettingInput):
+    deleteLeaguePointSetting(leagueId: ID!)
+
+    createRoundPointSetting(roundId: ID! data: CreateRoundPointSettingInput):
+    updateRoundPointSetting(roundId: ID! data: UpdateRoundPointSettingInput):
+    deleteRoundPointSetting(roundId: ID!)
+
+    createLeaguePlayer(playerId: ID!, data: CreateLeaguePlayerInput)
+    updateLeaguePlayer(playerId: ID!, data: UpdateLeaguePlayerInput)
+    deleteLeaguePlayer(playerId: ID!)
+
+    createRound(leagueId: ID!, data: createRoundInput)
+    updateRound(roundId: ID!, data: updateRoundInput)
+    deleteRound(leagueId: ID!)
+
+    addPlayerToRound(roundId: ID!, playerId: ID!, data: addPlayerToRoundInput)
+    updatePlayerRound(roundId: ID!, playerId: ID!, data: updatePlayerRoundInput)
+    deletePlayerFromRound(roundId: ID!, playerId: ID!):
+    # TODO: is leagueID necessary?
+    addPlayerPoints(playerId: ID!, roundId: ID!, leagueID: ID! weightMultiplier: Float)
+    updatePlayerPoints(playerId: ID!, roundId: ID!, leagueID: ID! weightMultiplier: Float)
+    deletePlayerPoints(playerId: ID!, roundId: ID!)
+
+    # TODO: Implement these comment types after MVP
+    # createRoundComment(data: CreatePostInput!): Post!
+    # deleteRoundComment(id: ID!): Post!
+    # updateRoundComment(id: ID!, data: UpdatePostInput!): Post!
+    # createLeagueComment(data: CreateCommentInput!): Comment!
+    # deleteLeagueComment(id: ID!): Comment!
+    # updateLeagueComment(id: ID!, data: UpdateCommentInput!): Comment!
+}
+input CreateUserInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+}
+input UpdateUserInput {
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+}
+input CreateLeagueInput {
+    name: String!
+    startDate: DateTime
+    endDate: DateTime
+}
+input UpdateBasicLeagueInput {
+    name: String
+    startDate: DateTime
+    endDate: DateTime
+}
+input CreateLeaguePointSettingInput {
+    name: String!
+    weight: Float!
+    default: Boolean!
+}
+input UpdateLeaguePointSettingInput {
+    name: String
+    weight: Float
+    default: Boolean
+}
+input CreateRoundPointSettingInput {
+    name: String!
+    weight: Float!
+}
+input UpdateRoundPointSettingInput {
+    name: String
+    weight: Float
+}
+input CreateLeaguePlayerInput {
+    customName: String!
+    handicap: Float
+    authorizedForAdmin: Boolean!
+}
+input UpdateLeaguePlayerInput {
+    customName: String
+    handicap: Float
+    authorizedForAdmin: Boolean
+}
+input createRoundInput {
+    golfCourse: String!
+    holesPlayed: Int
+    date: DateTime!
+    name: String!
+    completed: Boolean!
+}
+input updateRoundInput {
+    golfCourse: String
+    holesPlayed: Int
+    date: DateTime
+    name: String
+    completed: Boolean
+}
+input addPlayerToRoundInput {
+    handicap: Float
+    holesPlayed: Int
+    roundScore: Int
+}
+input updatePlayerRoundInput {
+    handicap: Float
+    holesPlayed: Int
+    roundScore: Int
+}
+# TODO: Not very sure about this
+input addPlayerPointInput {
+    weightMultiplier: Int!
+}
+
+# TODO: Implement these comment types after MVP
+# type Comment {
+#     id: ID!
+#     text: String!
+#     author: User!
+#     post: Post!
+# }
+# input CreateCommentInput {
+#     text: String!
+#     post: ID!
+# }
+# input UpdateCommentInput {
+#     text: String
+# }
+
+type User {
+    id: ID!
+    username: String!
+    lastName: String!
+    firstName: String!
+    email: String!
+    password: String!
+    leagues: [League!]!
+}
+
+type League {
+    id: ID!
+    name: String!
+    startDate: DateTime
+    endDate: DateTime
+    players: [LeaguePlayer!]!
+    # determines if league shows up on User's dashboard
+    archived: Boolean!
+}
+
+type LeaguePlayer {
+    id: ID!
+    user: User!
+    leagueId: League!
+    customName: String
+    # This field is initially set by the user that sets up the league
+    authorizedForAdmin: Boolean!
+    rounds: [Round!]!
+    handicap: Float
+}
+
+type Round {
+    id: ID!
+    golfCourse: String!
+    holesPlayed: Int
+    date: DateTime!
+    players: [Player!]!
+    name: String
+    # TODO: should I keep this completed field??
+    completed: Boolean
+    pointSettings: [RoundPointSetting!]!
+}
+
+type PlayerRound {
+    # TODO: is an id: ID! field needed here?
+    id: ID!
+    round: Round!
+    # TODO: Is this points field helpful or is it redundant since points can be calculated from PointEarned? Is this even referencing correctly as-is?
+    points: [RoundPointSetting!]!
+    handicap: Float
+    holesPlayed: Int
+    roundScore: Int
+    # TODO: allow tracking of each hole's actual golf score or maybe just total score?
+}
+
+type RoundPointSetting {
+    # TODO: is an id: ID! field needed here?
+    id: ID!
+    round: Round!
+    name: String!
+    weight: Float!
+}
+
+type LeaguePointSetting {
+    id: ID!
+    league: League!
+    name: String!
+    weight: Float!
+    defaultRoundPoint: Boolean!
+}
+
+# TODO: Am I going about this correctly?
+type PointEarned {
+    # TODO: is an id: ID! field needed here?
+    id: ID!
+    pointId: RoundPointSetting!
+    league: League!
+    round: Round!
+    player: Player!
+    # TODO: is weightMultiplier field the best approach if I'm tracking a tally of each type of point earned by each player in each round?
+    weightMultiplier: Int!
+}
+
+
