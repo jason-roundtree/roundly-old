@@ -4,52 +4,62 @@ type Query {
     league(leagueId: ID!): League!
     leaguePointSettings(leagueId: ID!): [LeaguePointSetting!]!
     roundPointSettings(roundId: ID!): [RoundPointSetting!]!
-    scheduledRounds(leagueId: ID!): [Round!]!
-    completedRounds(leagueId: ID!): [Round!]!
+    roundsScheduled(leagueId: ID!): [Round!]!
+    roundsCompleted(leagueId: ID!): [Round!]!
     player(playerId: ID!): LeaguePlayer!
     playerRound(playerId: ID!): [PlayerRound!]!
     playerPointsEarned(playerId: ID!, roundId: ID): [PointEarned!]
     playerScoreForHole(playerId: ID!, holeId: ID): PlayerHole!
     playerScoresForRound(playerId: ID!, roundId: ID): [PlayerHole!]!
 }
- 
+
+# TODO: Mutation questions/todos Re: Shopify's GraphQL guidelines:
+# - Should deleted items be returned?
+# - Should returned objects be nullable?
+# - Should I move object names as prefix (eg userCreate instead of createUser)
+# - mutations for grossScore
+
+
 type Mutation {
-    # TODO: For all of these that currently takes an ID as the first arg - When should ID be it's own argument as opposed to being part of the data: input??
     # User 
-    createUser(data: CreateUserInput!): AuthPayload!
+    createUser(input: CreateUserInput!): AuthPayload!
     loginUser(email: String!, password: String!): AuthPayload!
-    updateUser(data: UpdateUserInput!): User!
+    updateUser(input: UpdateUserInput!): User!
     # League  (must be authorizedAsAdmin to change league settings)
-    createLeague(data: CreateLeagueInput!) League!
+    createLeague(input: CreateLeagueInput!) League!
     deleteLeague(leagueId: ID!)
-    updateBasicLeagueInfo(leagueId: ID!, data: UpdateBasicLeagueInput): League!
-    createLeaguePointSetting(leagueId: ID!, data: CreateLeaguePointSettingInput): LeaguePointSetting!
-    updateLeaguePointSetting(leagueId: ID!, data: UpdateLeaguePointSettingInput): LeaguePointSetting!
+    updateBasicLeagueInfo(leagueId: ID!, input: UpdateBasicLeagueInput): League!
+    createLeaguePointSetting(leagueId: ID!, input: CreateLeaguePointSettingInput): LeaguePointSetting!
+    updateLeaguePointSetting(leagueId: ID!, input: UpdateLeaguePointSettingInput): LeaguePointSetting!
     deleteLeaguePointSetting(leagueId: ID!)
-    createRoundPointSetting(roundId: ID! data: CreateRoundPointSettingInput): RoundPointSetting!
-    updateRoundPointSetting(roundId: ID! data: UpdateRoundPointSettingInput): RoundPointSetting!
+    createRoundPointSetting(roundId: ID! input: CreateRoundPointSettingInput): RoundPointSetting!
+    updateRoundPointSetting(roundId: ID! input: UpdateRoundPointSettingInput): RoundPointSetting!
     deleteRoundPointSetting(roundId: ID!)
-    createLeaguePlayer(playerId: ID!, data: CreateLeaguePlayerInput): LeaguePlayer!
-    updateLeaguePlayer(playerId: ID!, data: UpdateLeaguePlayerInput): LeaguePlayer!
+    createLeaguePlayer(playerId: ID!, input: CreateLeaguePlayerInput): LeaguePlayer!
+    updateLeaguePlayer(playerId: ID!, input: UpdateLeaguePlayerInput): LeaguePlayer!
     deleteLeaguePlayer(playerId: ID!)
-    createRound(leagueId: ID!, data: createRoundInput): Round!
-    updateRound(roundId: ID!, data: updateRoundInput): Round!
+    createRound(leagueId: ID!, input: CreateRoundInput): Round!
+    updateRound(roundId: ID!, input: UpdateRoundInput): Round!
     deleteRound(leagueId: ID!)
-    addPlayerToRound(roundId: ID!, playerId: ID!, data: addPlayerToRoundInput): Round!
-    updatePlayerRound(roundId: ID!, playerId: ID!, data: updatePlayerRoundInput): Round!
+    addPlayerToRound(roundId: ID!, playerId: ID!, input: AddPlayerToRoundInput): Round!
+    updatePlayerRound(roundId: ID!, playerId: ID!, input: UpdatePlayerRoundInput): Round!
     deletePlayerFromRound(roundId: ID!, playerId: ID!)
-    # TODO: is leagueID necessary? Should I be returning Player?
-    addPlayerPoints(playerId: ID!, roundId: ID!, leagueID: ID! weightMultiplier: Float): LeaguePlayer!
-    updatePlayerPoints(playerId: ID!, roundId: ID!, leagueID: ID! weightMultiplier: Float): PlayerHole!
-    deletePlayerPoints(playerId: ID!, roundId: ID!): [PlayerHole!]!
+    # - is leagueID necessary in add/UpdatePlayerPoint? What should I be returning?
+    addPlayerPoint(playerId: ID!, roundId: ID!, leagueId: ID!):  PlayerHole!
+    updatePlayerPoint(playerId: ID!, roundId: ID!, leagueId: ID!): PlayerHole!
+    deletePlayerPoint(playerId: ID!, roundId: ID!): [PlayerHole!]!
+    addLeaguePrize(prizeId: ID!, input: addLeaguePrizeInput): LeaguePrize!
+    updateLeaguePrize(prizeId: ID!, input: updateLeaguePrizeInput): LeaguePrize!
+    deleteLeaguePrize(prizeId: ID!)
+
 
     # TODO: Implement these Comment mutations after MVP
-    # createRoundComment(data: CreatePostInput!): Post!
+    # createRoundComment(input: CreatePostInput!): Post!
     # deleteRoundComment(id: ID!): Post!
-    # updateRoundComment(id: ID!, data: UpdatePostInput!): Post!
-    # createLeagueComment(data: CreateCommentInput!): Comment!
+    # updateRoundComment(id: ID!, input: UpdatePostInput!): Post!
+    # createLeagueComment(input: CreateCommentInput!): Comment!
     # deleteLeagueComment(id: ID!): Comment!
-    # updateLeagueComment(id: ID!, data: UpdateCommentInput!): Comment!
+    # updateLeagueComment(id: ID!, input: UpdateCommentInput!): Comment!
 }
 input CreateUserInput {
     firstName: String!
@@ -101,32 +111,32 @@ input UpdateLeaguePlayerInput {
     handicap: Float
     authorizedForAdmin: Boolean
 }
-input createRoundInput {
+input CreateRoundInput {
     golfCourse: String!
     holesPlayed: Int
     date: DateTime!
     name: String!
     completed: Boolean!
 }
-input updateRoundInput {
+input UpdateRoundInput {
     golfCourse: String
     holesPlayed: Int
     date: DateTime
     name: String
     completed: Boolean
 }
-input addPlayerToRoundInput {
+input AddPlayerToRoundInput {
     handicap: Float
     holesPlayed: Int
     roundScore: Int
 }
-input updatePlayerRoundInput {
+input UpdatePlayerRoundInput {
     handicap: Float
     holesPlayed: Int
     roundScore: Int
 }
 # TODO: Not very sure about this
-input addPlayerPointInput {
+input AddPlayerPointInput {
     weightMultiplier: Int!
 }
 
@@ -174,7 +184,7 @@ type Round {
     golfCourse: String!
     holesPlayed: Int
     date: DateTime!
-    players: [Player!]!
+    players: [LeaguePlayer!]!
     name: String
     # TODO: should I keep this completed field??
     completed: Boolean
@@ -219,18 +229,16 @@ type PointEarned {
     pointId: RoundPointSetting!
     league: League!
     round: Round!
-    player: Player!
-    # TODO: is weightMultiplier field the best approach if I'm tracking a tally of each type of point earned by each player in each round?
-    weightMultiplier: Int!
+    player: LeaguePlayer!
 }
 
-# For optional tracking players' hole-by-hole scores 
 type PlayerHole {
     # TODO: is an id: ID! field needed here?
     id: ID!
     round: Round!
     player: LeaguePlayer!
     hole: Int!
+    pointEarned: [PointEarned!]!
     grossScore: Int!
     # TODO: how to make this non-nullable if they're tracking handicaps?
     netScore: Int
