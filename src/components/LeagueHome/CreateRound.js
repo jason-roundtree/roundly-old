@@ -28,10 +28,15 @@ const Input = styled.input`
 const H2 = styled.h2`
     margin-top: 20px;
 `
+const P = styled.p`
+    margin-top: 20px;
+    font-weight: 700;
+
+`
 const InputDate = styled(Input)`
     width: 40%;
 `
-const ListItem = styled.li`
+const ButtonListItem = styled.li`
     padding: 10px;
     margin: 5px;
     border: 1px solid rgb(122, 213, 178);;
@@ -101,11 +106,11 @@ export default function CreateRound() {
                     placeholder="Round Name"
                 />
 
-                <H2>Select Players to Activate for this Round</H2>
+                <P>Select Players to Activate for this Round</P>
                 <ul>
                     {players.map(player => {
                         return (
-                            <ListItem
+                            <ButtonListItem
                                 key={player.id}
                                 onClick={() => setToggleActivePlayer(player.id)}
                                 className={activePlayers.includes(player.id) 
@@ -114,7 +119,7 @@ export default function CreateRound() {
                                 }
                             >
                                 {player.name}
-                            </ListItem>
+                            </ButtonListItem>
                         )
                     })}
                 </ul>

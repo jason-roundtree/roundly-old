@@ -5,10 +5,10 @@ import Login from './Login'
 import Signup from './Signup'
 import Header from './Header'
 import AccountHome from './AccountHome'
-import NewLeague from './NewLeague/NewLeague'
+import CreateNewLeague from './NewLeague/CreateNewLeague'
 import CreateRound from './LeagueHome/CreateRound'
 import LeagueHome from './LeagueHome/LeagueHome'
-import Hole from './Scorecard/Hole'
+import PlayerHole from './Scorecard/PlayerHole'
 import AuthCallback from './AuthCallback';
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
@@ -21,11 +21,11 @@ const App = () => {
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
       <Route path="/account" component={AccountHome} />
-      <Route path="/new-league" component={NewLeague} />
+      <Route path="/new-league" component={CreateNewLeague} />
       <Route path="/create-round" component={CreateRound} />
       {/* <Route path="/league/:id" component={LeagueHome} /> */}
       <Route path="/league" component={LeagueHome} />
-      <Route path="/hole" component={Hole} />
+      <Route path="/player-hole" component={PlayerHole} />
 
       <Route exact path='/callback' component={AuthCallback} />
     </Router>

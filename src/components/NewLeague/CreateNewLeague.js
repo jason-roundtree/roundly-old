@@ -34,6 +34,7 @@ const InputDate = styled(Input)`
 const P = styled.p`
     font-style: italic;
 `
+
 // TODO: delete this if you leave buttons below inputs
 // const Button = styled.button`
 //     margin-left: 7px;
@@ -45,7 +46,7 @@ const SaveButton = styled.button`
     margin-top: 1.2em;
 `
 
-export default class NewLeague extends Component {
+export default class CreateNewLeague extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -110,7 +111,7 @@ export default class NewLeague extends Component {
     }
 
     render() {
-        console.log('NewLeague State: ', this.state)
+        console.log('CreateNewLeague State: ', this.state)
         return (
             <div>
                 <Form>
@@ -155,7 +156,7 @@ export default class NewLeague extends Component {
                     />
 
                     <H2>Points Settings</H2>
-                    <P>e.g. Eagle, Birdie, Par, Bogey, Break a Rule, Swear, Throw/Slam Club, you can get creative, etc.</P>
+                    <P>Establish points and assign a point value to each point (the value can be positive or negative). Examples of types of points you can use: Eagle, Birdie, Par, Bogey, Double Bogey, Break a Rule, Swear, Throw/Slam Club, you can get creative...</P>
                     <Input 
                         type="text"
                         id="pointType"
@@ -172,11 +173,12 @@ export default class NewLeague extends Component {
                     >
                         Add Point
                     </button>
+
                     <PointSettingsList 
                         pointSettings={this.state.pointSettings} 
                         deletePoint={this.deletePointSetting}
                     />
-                
+                    <br />                
                     <SaveButton 
                         onSubmit={null} 
                     >

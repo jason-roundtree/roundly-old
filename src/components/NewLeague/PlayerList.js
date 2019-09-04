@@ -7,8 +7,8 @@ const ListItem = styled.li`
     display: flex;
     align-items: center;
     padding: 0 7px;
+    margin: 5px;
     border: 1px solid rgb(191, 192, 196);
-    border-radius: 3px;
     height: 34px;
     width: 100%;
     max-width: 400px;
