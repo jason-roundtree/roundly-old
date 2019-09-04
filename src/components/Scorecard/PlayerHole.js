@@ -4,6 +4,9 @@ import styled from 'styled-components'
 
 const UL = styled.ul` margin-top: 10px; `
 const ButtonListItem = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 10px;
     margin: 5px 5px 5px 0;
     border: 1px solid rgb(122, 213, 178);;
@@ -49,6 +52,7 @@ export default function Hole(props) {
     // TODO: add hook for saving form
     const [scoreInput, setScore] = useState('')
     const [pointsEarned, setTogglePointsEarned] = useListItemToggle([])
+    // TODO: Is there an easier way to get the point weight of the current point id?
     const totalPointsEarned = () => {
         return pointsEarned.reduce((total, current) => {
                 let pointWeightIndex = data.points.findIndex(point => point.id === current)
@@ -56,6 +60,7 @@ export default function Hole(props) {
         }, 0)
     }
     return (
+        // TODO: Add some mechanism  to allow easy navigation to entering other players' points for same hole
         <Form>
             <h2>Hole {data.hole}</h2>
             <h3>{data.course}</h3>
@@ -72,11 +77,13 @@ export default function Hole(props) {
                                 : ''
                             }
                         >
-                            {point.pointType}
+                            <span>{point.pointType}</span>
+                            <span>{point.weight}</span>
                         </ButtonListItem>
                     )
                 })}
             </UL>
+            {/* TODO: Also add field for manual entry of total points earned? */}
             <P>
                 Total Points Earned: {totalPointsEarned()}
             </P>
