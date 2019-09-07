@@ -55,12 +55,14 @@ export default function Hole(props) {
     // TODO: Is there an easier way to get the point weight of the current point id?
     const totalPointsEarned = () => {
         return pointsEarned.reduce((total, current) => {
-                let pointWeightIndex = data.points.findIndex(point => point.id === current)
+                let pointWeightIndex = data.points.findIndex(point => {
+                   return point.id === current
+                })
                 return total + data.points[pointWeightIndex].weight
         }, 0)
     }
     return (
-        // TODO: Add some mechanism  to allow easy navigation to entering other players' points for same hole
+        // TODO: Add a MaterialUI Select component and set it up to allow easy navigation for entering other players' points for same hole
         <Form>
             <h2>Hole {data.hole}</h2>
             <h3>{data.course}</h3>
@@ -93,7 +95,7 @@ export default function Hole(props) {
                 type="input"
                 onChange={(e) => setScore(e.target.value)}
                 value={scoreInput}
-                name="scoreInput"
+                id="scoreInput"
             />
             <br />
             

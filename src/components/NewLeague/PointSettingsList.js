@@ -27,7 +27,7 @@ const P = styled.p`
         font-size: .75em;
     }
 `
-const DetailsButton = styled.button`    
+const SettingsButton = styled.button`    
     padding: 2px 5px;
     @media (max-width: 700px) {
         font-size: .75em;
@@ -40,48 +40,43 @@ const IMG = styled.img`
 `
 
 export default function PointSettingsList(props) {
-    const [ modalActive, setToggleModal ] = useState(false)
-    const toggleModal = () => {
-        return modalActive ? setToggleModal(false) : setToggleModal(true)
-    }
+    const [modalActive, setToggleModal] = useState(false)
+    const toggleModal = () => (
+        modalActive ? setToggleModal(false) : setToggleModal(true)
+    )
     
     return (
-        <>
-            <UL>
-                {props.pointSettings.map(point => {
-                    return (
-                        <ListItem
-                            // TODO: Add key once you have id
-                            key={null}
-                            tabindex="0"
+        <UL>
+            {props.pointSettings.map(point => {
+                return (
+                    <ListItem
+                        // TODO: Add key once you have id
+                        key={null}
+                        tabindex="0"
+                    >
+                        <PointSettingsModal 
+                            status={modalActive} 
+                            onClose={toggleModal}    
+                            pointType={point.type}   
+                        />
+                        <P>{point.type}</P>
+                     
+                        <SettingsButton
+                            type="button"
+                            onClick={toggleModal}
                         >
-                            <P>{point.type}</P>
-                            {/* <PointInput
-                                type="number"
-                                placeholder="0"
-                            /> */}
-                            <DetailsButton
-                                type="button"
-                                onClick={toggleModal}
-                            >
-                                Settings
-                            </DetailsButton>
-                            <IMG 
-                                src={trash} 
-                                alt="Trash can icon"
-                                height="25"
-                                onClick={() => props.deletePoint(point.type)}
-                            />
-                        </ListItem>
-                        
-                    )
-                    
-                })}
-            </UL>
-            <PointSettingsModal 
-                status={modalActive} 
-                onClose={toggleModal}       
-            />
-        </>
+                            Settings
+                        </SettingsButton>
+
+                        <IMG 
+                            src={trash} 
+                            alt="Trash can icon"
+                            height="25"
+                            onClick={() => props.deletePoint(point.type)}
+                        />
+                    </ListItem>
+                )
+            })}
+        </UL>
     )
 }
