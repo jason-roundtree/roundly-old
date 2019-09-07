@@ -116,6 +116,7 @@ export default class CreateNewLeague extends Component {
             <div>
                 <Form>
                     <h1>Create New League</h1>
+                    {/* TODO: Add aria label attributes and possible MaterialUI */}
                     <Input 
                         type="input"
                         id="leagueName"
@@ -166,6 +167,7 @@ export default class CreateNewLeague extends Component {
                         ref={this.pointTypeInput}
                     />
                     <br />
+                    {/* TODO: Setup call to post point type and then forward point id to settings page */}
                     <button 
                         type="button"
                         onClick={this.addPointSetting} 
