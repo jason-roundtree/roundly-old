@@ -25,9 +25,6 @@ const Input = styled.input`
         width: 100%;
     }
 `
-const H2 = styled.h2`
-    margin-top: 20px;
-`
 const P = styled.p`
     margin-top: 20px;
     font-weight: 700;
@@ -69,7 +66,7 @@ export default function CreateRound() {
         setInputFocus(false)
     }
     // console.log('inputValues: ', inputValues)
-    // console.log('activePlayers: ', activePlayers)
+    console.log('activePlayers: ', activePlayers)
     return (
         <div>
             <Form 

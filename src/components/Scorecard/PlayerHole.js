@@ -33,6 +33,10 @@ const TotalPointsSpan = styled.span`
     font-weight: 700;
     font-size: 1.25em;
     margin-left: 10px;
+    margin-bottom: 20px;
+`
+const H3 = styled.h3`
+    font-weight: 500;
 `
 // const enum = { 
 //     'ONCE_PER_HOLE',
@@ -100,8 +104,8 @@ export default function Hole(props) {
         // TODO: Add a MaterialUI Form/FormControl elements??
         <Form>
             <h2>Hole {data.hole}</h2>
-            <h3>{data.course}</h3>
-            <h3>First Name of Currently Selected Player</h3>
+            <H3>{data.course}</H3>
+            <H3>First Name of Currently Selected Player</H3>
             <PlayerSelect players={data.players} />
 
             <UL>

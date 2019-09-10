@@ -3,12 +3,26 @@ import { useState } from 'react'
 export default function useListItemToggle() {
     const [activeItems, setToggleActiveItems] = useState([])
     function toggleItem(_item) {
-        const itemActive = activeItems.find(activeItem => _item.id === activeItem.id)
-        if (!itemActive) {
-            setToggleActiveItems([...activeItems, _item])
-        } else {
-            const itemRemovedList = activeItems.filter(item => _item.id !== item.id)
-            setToggleActiveItems(itemRemovedList)
+        // if string then _item will be an ID
+        if (typeof _item === 'string') {
+            console.log('string _item: ', _item)
+            let itemActive = activeItems.includes(_item)
+            if (!itemActive) {
+                setToggleActiveItems([...activeItems, _item])
+            } else {
+                const itemRemovedList = activeItems.filter(item => _item !== item)
+                setToggleActiveItems(itemRemovedList)
+            }
+        } 
+        else if (typeof _item === 'object') {
+            console.log('object _item: ', _item)
+            let itemActive = activeItems.find(activeItem => _item.id === activeItem.id)
+            if (!itemActive) {
+                setToggleActiveItems([...activeItems, _item])
+            } else {
+                const itemRemovedList = activeItems.filter(item => _item.id !== item.id)
+                setToggleActiveItems(itemRemovedList)
+            }
         }
     }
     return [activeItems, toggleItem]

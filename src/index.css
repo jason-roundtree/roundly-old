@@ -25,6 +25,7 @@ button {
 }
 button:hover {
   cursor: pointer;
+  background-color: rgb(149, 237, 203);
 }
 table, tr, td {
   border: 1px solid rgb(191, 192, 196);
@@ -36,7 +37,7 @@ table, tr, td {
 }
 .disabledListItem {
   pointer-events: none;
-  opacity: 0.6;        
+  opacity: 0.5;        
 }
 /* @media (min-width: 700px) {
   * {
