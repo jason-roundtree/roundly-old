@@ -5,7 +5,6 @@ export default function useListItemToggle() {
     function toggleItem(_item) {
         // if string then _item will be an ID
         if (typeof _item === 'string') {
-            console.log('string _item: ', _item)
             let itemActive = activeItems.includes(_item)
             if (!itemActive) {
                 setToggleActiveItems([...activeItems, _item])
@@ -15,7 +14,6 @@ export default function useListItemToggle() {
             }
         } 
         else if (typeof _item === 'object') {
-            console.log('object _item: ', _item)
             let itemActive = activeItems.find(activeItem => _item.id === activeItem.id)
             if (!itemActive) {
                 setToggleActiveItems([...activeItems, _item])

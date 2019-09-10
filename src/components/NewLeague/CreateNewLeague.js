@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import PlayerList from './PlayerList'
 import PointSettingsList from './PointSettingsList'
 import styled from 'styled-components'
+import { 
+    InputLabel, 
+    Input,
+    FormControl
+} from '@material-ui/core'
+import { styled as Mui_styled } from '@material-ui/styles'
 
 // TODO: add validation
 const Form = styled.form`
@@ -9,7 +15,8 @@ const Form = styled.form`
     margin: 40px auto 0;
     padding: 20px;
 `
-const Input = styled.input`
+// TODO: Apply these to MUI inputs
+const MyInput = styled.input`
     width: 70%;
     /* min-width: 300px; */
     margin: 10px 0;
@@ -28,21 +35,15 @@ const Input = styled.input`
 const H2 = styled.h2`
     margin-top: 20px;
 `
-const InputDate = styled(Input)`
-    width: 50%;
-`
 const P = styled.p`
     font-style: italic;
 `
-
-// TODO: delete this if you leave buttons below inputs
-// const Button = styled.button`
-//     margin-left: 7px;
-//     @media (max-width: 550px) {
-//         margin-left: 0;
-//     }
-// ` 
-const SaveButton = styled.button`
+const MuiFormControl = Mui_styled(FormControl)({
+        marginTop: 20,
+        // TODO: How to change size on smaller screens
+        minWidth: 320,
+})
+const Button = styled.button`
     margin-top: 1.2em;
 `
 
@@ -66,15 +67,14 @@ export default class CreateNewLeague extends Component {
     onBlur = () => this.setState({ dateInputFocused: false })
 
     handleInputChange = e => {
-        const { id, value } = e.target
-        this.setState({ [id]: value })
+        // console.log('handleInputChange e: ', e)
+        this.setState({ [e.target.name]: e.target.value })
     }
     // TODO: good way to make the next 4 functions DRY??
     addPlayer = () => {
         const { players, playerName } = this.state
         this.setState({
             players: [...players, playerName],
-            // TODO: Does this always wait until field above to set?
             playerName: ''
         })
         this.playerTextInput.current.focus()
@@ -86,7 +86,7 @@ export default class CreateNewLeague extends Component {
         })
     }
 
-    addPointSetting = e => {
+    addPointSetting = () => {
         const { pointSettings, pointType } = this.state
         const pointSetting = {
             type: pointType,
@@ -109,48 +109,56 @@ export default class CreateNewLeague extends Component {
     onSubmit = () => {
 
     }
-
+    
     render() {
         console.log('CreateNewLeague State: ', this.state)
         return (
             <div>
                 <Form>
                     <h1>Create New League</h1>
-                    {/* TODO: Add aria label attributes and possible MaterialUI */}
-                    <Input 
-                        type="input"
-                        id="leagueName"
-                        onChange={this.handleInputChange}
-                        value={this.state.leagueName}
-                        placeholder="League Name"
-                    />
-                    
-                    <InputDate 
-                        type={this.state.dateInputFocused ? "date" : "text"}
-                        id="endDate"
-                        onChange={this.handleInputChange}
-                        value={this.state.endDate}
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        placeholder="End Date"
-                    />
-                    
-                    <Input 
-                        type="text"
-                        id="playerName"
-                        onChange={this.handleInputChange}
-                        value={this.state.playerName}
-                        placeholder="Player Name"
-                        ref={this.playerTextInput}
-                    />
+                    <MuiFormControl>
+                        <InputLabel htmlFor="leagueName">League Name</InputLabel>
+                        <Input 
+                            type="input"
+                            name="leagueName"
+                            onChange={this.handleInputChange}
+                            value={this.state.leagueName}
+                        />
+                    </MuiFormControl>
                     <br />
-                    <button 
+
+                    <MuiFormControl>
+                        <InputLabel htmlFor="endDate">End Date</InputLabel>
+                        <Input 
+                            type={this.state.dateInputFocused || this.state.endDate ? "date" : "text"}
+                            name="endDate"
+                            onChange={this.handleInputChange}
+                            value={this.state.endDate}
+                            onFocus={this.onFocus}
+                            onBlur={this.onBlur}
+                        />
+                    </MuiFormControl>
+                    <br />
+
+                    <MuiFormControl>
+                        <InputLabel htmlFor="playerName">Player Name</InputLabel>
+                        <Input 
+                            type="text"
+                            name="playerName"
+                            onChange={this.handleInputChange}
+                            value={this.state.playerName}
+                            ref={this.playerTextInput}
+                        />
+                    </MuiFormControl>
+                    <br />
+                    
+                    <Button 
                         type="button"
                         onClick={this.addPlayer} 
                         disabled={this.state.playerName === ''}
                     >
                         Add Player
-                    </button>
+                    </Button>
                     <PlayerList 
                         players={this.state.players}
                         deletePlayer={this.deletePlayer}
@@ -158,34 +166,36 @@ export default class CreateNewLeague extends Component {
 
                     <H2>Points Settings</H2>
                     <P>Add points and then select the Settings button to assign point values (the value can be positive or negative), along with other setting options. Examples of types of points you can use: Eagle, Birdie, Par, Bogey, Double Bogey, Break a Rule, Swear, Throw/Slam Club, you can get creative...</P>
-                    <Input 
-                        type="text"
-                        id="pointType"
-                        onChange={this.handleInputChange}
-                        value={this.state.pointType}
-                        placeholder="Point Type"
-                        ref={this.pointTypeInput}
-                    />
+                    <MuiFormControl>
+                        <InputLabel htmlFor="playerName">Point Name</InputLabel>
+                        <Input 
+                            type="text"
+                            name="pointType"
+                            onChange={this.handleInputChange}
+                            value={this.state.pointType}
+                            ref={this.pointTypeInput}
+                        />
+                    </MuiFormControl>
                     <br />
                     {/* TODO: Setup call to post point type and then forward point id to settings page */}
-                    <button 
+                    <Button 
                         type="button"
                         onClick={this.addPointSetting} 
                         disabled={this.state.pointType === ''}
                     >
                         Add Point
-                    </button>
+                    </Button>
 
                     <PointSettingsList 
                         pointSettings={this.state.pointSettings} 
                         deletePoint={this.deletePointSetting}
                     />
                     <br />                
-                    <SaveButton 
+                    <Button 
                         onSubmit={null} 
                     >
                         Save League
-                    </SaveButton>
+                    </Button>
                 </Form>
             </div>
         )

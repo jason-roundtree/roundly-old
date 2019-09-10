@@ -28,7 +28,6 @@ const Input = styled.input`
 const P = styled.p`
     margin-top: 20px;
     font-weight: 700;
-
 `
 const InputDate = styled(Input)`
     width: 40%;
@@ -36,7 +35,7 @@ const InputDate = styled(Input)`
 const ButtonListItem = styled.li`
     padding: 10px;
     margin: 5px;
-    border: 1px solid rgb(122, 213, 178);;
+    border: 1px solid rgb(122, 213, 178);
     width: 50%;
     @media (max-width: 700px) {
         width: 100%;

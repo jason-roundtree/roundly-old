@@ -81,7 +81,6 @@ export default function Hole(props) {
     }
 
     const pointsEarnedIncludesPoint = (pointId) => {
-        console.log('pointsEarnedIncludesPoint: ', pointsEarned.includes(pointId))
         return pointsEarned.find(pointEarned => {
             return pointEarned.id === pointId
         })
@@ -101,7 +100,6 @@ export default function Hole(props) {
     console.log('scoreInput: ', scoreInput)
 
     return (
-        // TODO: Add a MaterialUI Form/FormControl elements??
         <Form>
             <h2>Hole {data.hole}</h2>
             <H3>{data.course}</H3>
@@ -110,7 +108,6 @@ export default function Hole(props) {
 
             <UL>
                 {data.points.map((point, i) => {
-                    console.log('xx: ')
                     return (
                         // TODO: disable other score-based points if another hole-based point has been selected
 

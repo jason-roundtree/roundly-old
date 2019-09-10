@@ -73,6 +73,7 @@ export default function PointSettingModal(props) {
 
     console.log('PointSettingModal state: ', values)
     console.log('PointSettingModal props', props)
+
     return (
         <Modal
             open={props.status}
@@ -139,7 +140,12 @@ export default function PointSettingModal(props) {
                     </FormControl> 
 
                     <Button>Save</Button>
-                    <Button>Cancel</Button>
+                    <Button 
+                        type="button"
+                        onClick={props.onClose}
+                    >
+                        Cancel
+                    </Button>
                 </form>
             </div>
         </Modal>

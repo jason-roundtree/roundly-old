@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: 30,
         // TODO: How to change size on smaller screens
         minWidth: 320,
-    },
+    }
 }))
 
 export default function PlayerSelect(props) {
