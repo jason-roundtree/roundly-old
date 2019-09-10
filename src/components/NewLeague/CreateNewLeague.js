@@ -9,28 +9,10 @@ import {
 } from '@material-ui/core'
 import { styled as Mui_styled } from '@material-ui/styles'
 
-// TODO: add validation
 const Form = styled.form`
     width: 80%;
     margin: 40px auto 0;
     padding: 20px;
-`
-// TODO: Apply these to MUI inputs
-const MyInput = styled.input`
-    width: 70%;
-    /* min-width: 300px; */
-    margin: 10px 0;
-    /* TODO: noticed S.O. answers saying line-height should be used but not why. Is it for responsiveness on smaller screens? */
-    /* line-height: 140%; */
-    border: transparent;
-    border-bottom: 1px solid rgb(191, 192, 196);
-    &::placeholder {
-       color: rgb(191, 192, 196);
-       opacity: 1;
-    }
-    @media (max-width: 700px) {
-        width: 100%;
-    }
 `
 const H2 = styled.h2`
     margin-top: 20px;
@@ -38,14 +20,17 @@ const H2 = styled.h2`
 const P = styled.p`
     font-style: italic;
 `
-const MuiFormControl = Mui_styled(FormControl)({
-        marginTop: 20,
-        // TODO: How to change size on smaller screens
-        minWidth: 320,
-})
 const Button = styled.button`
     margin-top: 1.2em;
 `
+const MuiFormControl = Mui_styled(FormControl)({
+    marginTop: 20,
+    width: '60%',
+    // minWidth: 320,
+    '@media (max-width: 700px)': {
+        width: '100%'
+    }
+})
 
 export default class CreateNewLeague extends Component {
     constructor(props) {
@@ -190,7 +175,9 @@ export default class CreateNewLeague extends Component {
                         pointSettings={this.state.pointSettings} 
                         deletePoint={this.deletePointSetting}
                     />
-                    <br />                
+                    <br />   
+
+                    {/* TODO: add validation to ensure league name has been added */}
                     <Button 
                         onSubmit={null} 
                     >

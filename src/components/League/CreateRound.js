@@ -2,6 +2,12 @@ import React, { useState, useRef, useEffect } from 'react'
 import useListItemToggle from '../../hooks/useListItemToggle'
 import useInput from '../../hooks/useInput'
 import styled from 'styled-components'
+import { 
+    InputLabel, 
+    Input,
+    FormControl, 
+} from '@material-ui/core';
+import { styled as Mui_styled } from '@material-ui/styles'
 import { players } from '../../db'
 
 const Form = styled.form`
@@ -9,34 +15,19 @@ const Form = styled.form`
     margin: 40px auto 0;
     padding: 20px;
 `
-const Input = styled.input`
-    width: 60%;
-    /* min-width: 300px; */
-    margin: 10px 0;
-    /* TODO: noticed S.O. answers saying line-height should be used but not why. Is it for responsiveness on smaller screens? */
-    /* line-height: 140%; */
-    border: transparent;
-    border-bottom: 1px solid rgb(191, 192, 196);
-    &::placeholder {
-       color: rgb(191, 192, 196);
-       opacity: 1;
-    }
-    @media (max-width: 700px) {
-        width: 100%;
-    }
-`
 const P = styled.p`
     margin-top: 20px;
     font-weight: 700;
-`
-const InputDate = styled(Input)`
-    width: 40%;
 `
 const ButtonListItem = styled.li`
     padding: 10px;
     margin: 5px;
     border: 1px solid rgb(122, 213, 178);
     width: 50%;
+    :hover {
+        cursor: pointer;
+        background-color: rgb(122, 213, 178);
+    }
     @media (max-width: 700px) {
         width: 100%;
     }
@@ -44,9 +35,14 @@ const ButtonListItem = styled.li`
 const SaveButton = styled.button`
     margin-top: 1.2em;
 `
-// const P = styled.p`
-//     font-style: italic;
-// `
+const MuiFormControl = Mui_styled(FormControl)({
+    marginTop: 20,
+    width: '60%',
+    // minWidth: 320,
+    '@media (max-width: 700px)': {
+        width: '100%'
+    }
+})
 
 export default function CreateRound() {
     const [activePlayers, setToggleActivePlayer] = useListItemToggle([])
@@ -64,8 +60,10 @@ export default function CreateRound() {
         inputRef.current.blur()
         setInputFocus(false)
     }
+
     // console.log('inputValues: ', inputValues)
     console.log('activePlayers: ', activePlayers)
+
     return (
         <div>
             <Form 
@@ -73,35 +71,41 @@ export default function CreateRound() {
                 // onSubmit={}
             >
                 <h1>Create New Round</h1>
-                <InputDate 
-                    type={inputFocused ? 'date' : 'text'}
-                    ref={inputRef}
-                    onFocus={focusInput}
-                    onBlur={blurInput}
-                    onChange={setInputValue}
-                    value={inputValues.roundDate}
-                    name="roundDate"
-                    placeholder="Round Date"
-                />
+                <MuiFormControl>
+                    <InputLabel htmlFor="roundDate">Round Date</InputLabel>
+                    <Input 
+                        type={inputFocused ? 'date' : 'text'}
+                        name="roundDate"
+                        onChange={setInputValue}
+                        value={inputValues.roundDate}
+                        ref={inputRef}
+                        onFocus={focusInput}
+                        onBlur={blurInput}
+                    />
+                </MuiFormControl>
                 <br />
 
-                <Input 
-                    type="text"
-                    onChange={setInputValue}
-                    value={inputValues.course}
-                    name="course"
-                    placeholder="Course"
-                />
+                <MuiFormControl>
+                    <InputLabel htmlFor="course">Course</InputLabel>
+                    <Input 
+                        type="text"
+                        name="course"
+                        onChange={setInputValue}
+                        value={inputValues.course}
+                    />
+                </MuiFormControl>
                 <br />
 
-                <Input 
-                    type="text"
-                    onChange={setInputValue}
-                    value={inputValues.roundName}
-                    name="roundName"
-                    placeholder="Round Name"
-                />
-
+                <MuiFormControl>
+                    <InputLabel htmlFor="course">Round Name</InputLabel>
+                    <Input 
+                        type="text"
+                        name="roundName"
+                        onChange={setInputValue}
+                        value={inputValues.roundName}
+                    />
+                </MuiFormControl>
+                
                 <P>Select Players to Activate for this Round</P>
                 <ul>
                     {players.map(player => {
@@ -113,6 +117,8 @@ export default function CreateRound() {
                                     ? 'activeListItem' 
                                     : ''
                                 }
+                                // TODO: add onKeyPress (return/enter key) handler?
+                                tabIndex="0"
                             >
                                 {player.name}
                             </ButtonListItem>
