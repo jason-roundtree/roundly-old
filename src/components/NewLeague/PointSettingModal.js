@@ -97,7 +97,7 @@ export default function PointSettingModal(props) {
                             id="pointValue"
                         />
 
-                        <PointSettingDescription>Point Value is the amount of points a player earns for performing the corresponding action. These values can be changed from round-to-round but generally it's best to keep them consistent.</PointSettingDescription>
+                        <PointSettingDescription>Point Value is the amount of points a player earns for performing the corresponding action. These values can be changed from round-to-round but generally you'll probably want to keep them consistent during a league.</PointSettingDescription>
                     </FormControl>
 
                     <FormControl className={classes.formControl}>

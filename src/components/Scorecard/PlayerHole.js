@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PlayerSelect from './PlayerSelect'
 import useListItemToggle from '../../hooks/useListItemToggle'
-import { FormControl, Input, InputLabel, MenuItem, makeStyles } from '@material-ui/core'
+import { FormControl, Input, InputLabel, makeStyles } from '@material-ui/core'
 import styled from 'styled-components'
 
 const UL = styled.ul` margin-top: 10px; `
@@ -22,35 +22,33 @@ const Form = styled.form`
     margin: 40px auto 0;
     padding: 20px;
 `
-// const Input = styled.input`
-//     width: 50px;
-//     /* TODO: noticed S.O. answers saying line-height should be used but not why. Is it for responsiveness on smaller screens? */
-//     /* line-height: 140%; */
-//     border: transparent;
-//     border-bottom: 1px solid rgb(191, 192, 196);
-// `
-// const Label = styled.label`
-//     margin-right: 5px;
-// `
 const P = styled.p`
     margin: 15px 0 10px;
 `
-const SaveButton = styled.button`
-    margin-top: 1.2em;
+const Button = styled.button`
+    margin-top: 2em;
+    margin-right: 1.2em;
 `
 const TotalPointsSpan = styled.span`
     font-weight: 700;
+    font-size: 1.25em;
     margin-left: 10px;
 `
+// const enum = { 
+//     'ONCE_PER_HOLE',
+//     'ONCE_PER_ROUND',
+//     'MULTIPLE_PER_ROUND'
+// }
 
 const data = {
     hole: 9,
     players: ['Jason', 'Buster', 'Gob', 'Gene'],
     course: 'Butterfly Fields',
     points: [
-        { id: 1, pointType: 'Birdie', weight: 10 },
-        { id: 2, pointType: 'Par', weight: 2 },
-        { id: 3, pointType: 'Bogey', weight: -5 },
+        { id: 1, type: 'Birdie', weight: 10, frequency: 'ONCE_PER_HOLE' },
+        { id: 2, type: 'Par', weight: 2, frequency: 'ONCE_PER_HOLE' },
+        { id: 3, type: 'Bogey', weight: -5, frequency: 'ONCE_PER_HOLE' },
+        { id: 4, type: 'Lowest Round', weight: 25, frequency: 'ONCE_PER_ROUND' },
     ]
 }
 
@@ -63,11 +61,41 @@ export default function Hole(props) {
     const totalPointsEarned = () => {
         return pointsEarned.reduce((total, current) => {
                 let pointWeightIndex = data.points.findIndex(point => {
-                   return point.id === current
+                   return point.id === current.id
                 })
                 return total + data.points[pointWeightIndex].weight
         }, 0)
     }
+
+    const listItemDisabled = (pointFrequency) => {
+        if (pointFrequency === 'ONCE_PER_HOLE') {
+            return pointsEarned.some(pointEarned => {
+                return pointEarned.frequency === 'ONCE_PER_HOLE'
+            })
+        }
+        
+    }
+
+    const pointsEarnedIncludesPoint = (pointId) => {
+        console.log('pointsEarnedIncludesPoint: ', pointsEarned.includes(pointId))
+        return pointsEarned.find(pointEarned => {
+            return pointEarned.id === pointId
+        })
+    }
+
+    const generateClass = (pointId, pointFrequency) => {
+        if (pointsEarnedIncludesPoint(pointId)) {
+            return 'activeListItem'
+        } else if (listItemDisabled(pointFrequency)) {
+            return 'disabledListItem'
+        } else {
+            return ''
+        }
+    }
+
+    console.log('pointsEarned: ', pointsEarned)
+    console.log('scoreInput: ', scoreInput)
+
     return (
         // TODO: Add a MaterialUI Form/FormControl elements??
         <Form>
@@ -78,17 +106,19 @@ export default function Hole(props) {
 
             <UL>
                 {data.points.map((point, i) => {
+                    console.log('xx: ')
                     return (
                         // TODO: disable other score-based points if another hole-based point has been selected
+
                         <ButtonListItem 
                             key={i}
-                            onClick={() => setTogglePointsEarned(point.id)}
-                            className={pointsEarned.includes(point.id) 
-                                ? 'activeListItem' 
-                                : ''
-                            }
+                            onClick={() => setTogglePointsEarned({   
+                                id: point.id, 
+                                frequency: point.frequency 
+                            })}
+                            className={generateClass(point.id, point.frequency)}
                         >
-                            <span>{point.pointType}</span>
+                            <span>{point.type}</span>
                             <span>{point.weight}</span>
                         </ButtonListItem>
                     )
@@ -111,7 +141,8 @@ export default function Hole(props) {
             </FormControl>
             <br />
             
-            <SaveButton>Save</SaveButton>
+            <Button>Save</Button>
+            <Button>Return to Round</Button>
         </Form>
     )
 }

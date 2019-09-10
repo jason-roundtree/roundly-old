@@ -33,7 +33,13 @@ export default function PlayerSelect(props) {
                 name="changePlayer"
             >
                 {props.players.map(player => {
-                    return <MenuItem value={player}>{player}</MenuItem>
+                    return (
+                        <MenuItem 
+                            value={player}
+                        >
+                            {player}
+                        </MenuItem>
+                    )
                 })}
             </Select>
         </FormControl>

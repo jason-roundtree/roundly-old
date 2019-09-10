@@ -34,6 +34,10 @@ table, tr, td {
 .activeListItem {
   background-color: rgb(149, 237, 203);
 }
+.disabledListItem {
+  pointer-events: none;
+  opacity: 0.6;        
+}
 /* @media (min-width: 700px) {
   * {
     font-size: 1em;

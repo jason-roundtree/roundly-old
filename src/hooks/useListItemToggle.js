@@ -2,12 +2,12 @@ import { useState } from 'react'
 
 export default function useListItemToggle() {
     const [activeItems, setToggleActiveItems] = useState([])
-    function toggleItem(itemId) {
-        const itemActive = activeItems.includes(itemId)
+    function toggleItem(_item) {
+        const itemActive = activeItems.find(activeItem => _item.id === activeItem.id)
         if (!itemActive) {
-            setToggleActiveItems([...activeItems, itemId])
+            setToggleActiveItems([...activeItems, _item])
         } else {
-            const itemRemovedList = activeItems.filter(item => item !== itemId)
+            const itemRemovedList = activeItems.filter(item => _item.id !== item.id)
             setToggleActiveItems(itemRemovedList)
         }
     }
