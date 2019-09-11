@@ -32,6 +32,10 @@ table, tr, td {
   border-collapse: collapse;
   padding: 5px 10px;
 }
+.buttonListItem:hover {
+  cursor: pointer;
+  background-color: rgb(122, 213, 178);
+}
 .activeListItem {
   background-color: rgb(149, 237, 203);
 }

@@ -117,7 +117,7 @@ export default function Hole(props) {
                                 id: point.id, 
                                 frequency: point.frequency 
                             })}
-                            className={generateClass(point.id, point.frequency)}
+                            className={`buttonListItem ${generateClass(point.id, point.frequency)}`}
                         >
                             <span>{point.type}</span>
                             <span>{point.weight}</span>

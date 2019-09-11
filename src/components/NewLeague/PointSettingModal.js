@@ -24,15 +24,11 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
     paper: {
         position: 'absolute',
-        width: 375,
+        width: 400,
         backgroundColor: theme.palette.background.paper,
         border: '1px solid rgb(191, 192, 196)',
         boxShadow: theme.shadows[2],
         padding: theme.spacing(2, 4, 3),
-    },
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
     },
     formControl: {
         margin: theme.spacing(1),
@@ -41,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Button = styled.button`
-    margin-top: 20px;
+    /* margin-top: 10px; */
     margin-right: 10px;
 `
 const PointSettingDescription = styled.p`
@@ -79,12 +75,13 @@ export default function PointSettingModal(props) {
             open={props.status}
             onClose={props.onClose}
             aria-labelledby="modal-title"
+            disableScrollLock="true"
         >
             <div style={modalStyle} className={classes.paper}>
                 <h2 id="modal-title">
                     Point Settings: <br /><PointType>{props.pointType}</PointType>
                 </h2>
-                <form className={classes.root}>
+                <form>
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="pointValue">
                             Point Value
@@ -116,7 +113,7 @@ export default function PointSettingModal(props) {
                             <MenuItem value={true}>True</MenuItem>
                             <MenuItem value={false}>False</MenuItem>
                         </Select>
-                        <PointSettingDescription>Points set as a Default Point will automatically be set when you create a new league round. You can always edit round-level points later.</PointSettingDescription>
+                        <PointSettingDescription>A default point will automatically be set when you create a new league round. You can always edit round-level points later.</PointSettingDescription>
                     </FormControl>
 
                     <FormControl className={classes.formControl}>
@@ -135,7 +132,7 @@ export default function PointSettingModal(props) {
                             <MenuItem value="Once per Hole">Once Per Hole</MenuItem>
                             <MenuItem value="Multiple Times per Hole">Multiple Times Per Hole</MenuItem>
                         </Select>
-                        <PointSettingDescription>Point Earned Frequency determines how many times a particular point can be scored for a player during a hole or round. For some examples: 'Once Per Hole' will typically be used for a player's score on a hole, such as Birdie, Par, Bogey and so on; 'Multiple Times Per Hole' could include things like Swearing, Throwing Clubs, or Finding Another Player's Ball; 'Once Per Round' could include Lowest Net Round of the Day.</PointSettingDescription>
+                        <PointSettingDescription>Determines how many times a player can earn a point during a hole or round. e.g.: 'Once Per Hole' will typically be used for a player's score on a hole, such as Birdie, Bogey, etc.; 'Multiple Times Per Hole' could include things like Swearing, Throwing Clubs or Finding Another Player's Ball; 'Once Per Round' could include Lowest Net Round of the Day.</PointSettingDescription>
                         <br />
                     </FormControl> 
 

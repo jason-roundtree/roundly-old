@@ -150,6 +150,7 @@ export default class CreateNewLeague extends Component {
                     />
 
                     <H2>Points Settings</H2>
+                    {/* TODO: Maybe put examples in a panel to free up some space? */}
                     <P>Add points and then select the Settings button to assign point values (the value can be positive or negative), along with other setting options. Examples of types of points you can use: Eagle, Birdie, Par, Bogey, Double Bogey, Break a Rule, Swear, Throw/Slam Club, you can get creative...</P>
                     <MuiFormControl>
                         <InputLabel htmlFor="playerName">Point Name</InputLabel>
@@ -163,6 +164,7 @@ export default class CreateNewLeague extends Component {
                     </MuiFormControl>
                     <br />
                     {/* TODO: Setup call to post point type and then forward point id to settings page */}
+                    {/* TODO: Setup Combobox to allow quick selection of commonly used types? https://ui.reach.tech/combobox */}
                     <Button 
                         type="button"
                         onClick={this.addPointSetting} 

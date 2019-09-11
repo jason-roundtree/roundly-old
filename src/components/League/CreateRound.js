@@ -24,10 +24,6 @@ const ButtonListItem = styled.li`
     margin: 5px;
     border: 1px solid rgb(122, 213, 178);
     width: 50%;
-    :hover {
-        cursor: pointer;
-        background-color: rgb(122, 213, 178);
-    }
     @media (max-width: 700px) {
         width: 100%;
     }
@@ -50,7 +46,7 @@ export default function CreateRound() {
         roundDate: '', course: '', roundName: ''
     })
 
-    const [inputFocused, setInputFocus] = useState(false)
+    const [dateInputFocused, setInputFocus] = useState(false)
     const inputRef = useRef()
     function focusInput() {
         inputRef.current.focus()
@@ -74,7 +70,7 @@ export default function CreateRound() {
                 <MuiFormControl>
                     <InputLabel htmlFor="roundDate">Round Date</InputLabel>
                     <Input 
-                        type={inputFocused ? 'date' : 'text'}
+                        type={dateInputFocused || inputValues.roundDate ? "date" : "text"}
                         name="roundDate"
                         onChange={setInputValue}
                         value={inputValues.roundDate}
@@ -114,8 +110,8 @@ export default function CreateRound() {
                                 key={player.id}
                                 onClick={() => setToggleActivePlayer(player.id)}
                                 className={activePlayers.includes(player.id) 
-                                    ? 'activeListItem' 
-                                    : ''
+                                    ? 'buttonListItem activeListItem' 
+                                    : 'buttonListItem'
                                 }
                                 // TODO: add onKeyPress (return/enter key) handler?
                                 tabIndex="0"
