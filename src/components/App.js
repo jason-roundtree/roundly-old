@@ -9,6 +9,7 @@ import CreateNewLeague from './NewLeague/CreateNewLeague'
 import CreateRound from './League/CreateRound'
 import LeagueHome from './League/LeagueHome'
 import PlayerHole from './Scorecard/PlayerHole'
+import RoundSummary from './Scorecard/RoundSummary'
 import AuthCallback from './AuthCallback';
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
@@ -26,6 +27,7 @@ const App = () => {
       {/* <Route path="/league/:id" component={LeagueHome} /> */}
       <Route path="/league" component={LeagueHome} />
       <Route path="/player-hole" component={PlayerHole} />
+      <Route path="/round-summary" component={RoundSummary} />
       <Route exact path='/callback' component={AuthCallback} />
     </Router>
   )
