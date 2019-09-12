@@ -5,6 +5,11 @@ import { FormControl, Input, InputLabel, makeStyles } from '@material-ui/core'
 import styled from 'styled-components'
 
 const UL = styled.ul` margin-top: 10px; `
+const Form = styled.form`
+    width: 80%;
+    margin: 40px auto 0;
+    padding: 20px;
+`
 const ButtonListItem = styled.li`
     display: flex;
     align-items: center;
@@ -16,11 +21,6 @@ const ButtonListItem = styled.li`
     @media (max-width: 700px) {
         width: 100%;
     }
-`
-const Form = styled.form`
-    width: 80%;
-    margin: 40px auto 0;
-    padding: 20px;
 `
 const P = styled.p`
     margin: 15px 0 10px;
@@ -46,7 +46,7 @@ const H3 = styled.h3`
 
 const data = {
     hole: 9,
-    players: ['Jason', 'Buster', 'Gob', 'Gene'],
+    players: ['Im a really long name', 'Jason', 'Buster', 'Gob', 'Gene'],
     course: 'Butterfly Fields',
     points: [
         { id: 1, type: 'Birdie', weight: 10, frequency: 'ONCE_PER_HOLE' },
@@ -58,7 +58,6 @@ const data = {
 
 export default function Hole(props) {
     // TODO: add hook for saving form
-    
     const [ scoreInput, setScore ] = useState('')
     const [ pointsEarned, setTogglePointsEarned ] = useListItemToggle([])
     // TODO: Is there an easier way to get the point weight of the current point id?
@@ -103,7 +102,7 @@ export default function Hole(props) {
         <Form>
             <h2>Hole {data.hole}</h2>
             <H3>{data.course}</H3>
-            <H3>First Name of Currently Selected Player</H3>
+            <H3>''First Name of Currently Selected Player''</H3>
             <PlayerSelect players={data.players} />
 
             <UL>
@@ -131,13 +130,15 @@ export default function Hole(props) {
             </P>
             {/* TODO: Add condition that checks for tracking of Net Score; if true add Gross Score and Net Score fields */}
             <FormControl>
+                {/* TODO: add breakpoint */}
                 <InputLabel htmlFor="scoreInput">Hole Score</InputLabel>
                 <Input 
-                    type="input"
+                    type="number"
+                    name="scoreInput"
                     onChange={(e) => setScore(e.target.value)}
                     value={scoreInput}
-                    // id="scoreInput"
-                    name="scoreInput"
+                    autoComplete="off"
+                    
                 />
             </FormControl>
             <br />
