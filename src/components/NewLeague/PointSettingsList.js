@@ -14,13 +14,6 @@ const ListItem = styled.li`
     width: 100%;
     /* max-width: 400px; */
 `
-// const PointInput = styled.input`
-//     width: 50px;
-//     border: transparent;
-//     text-align: right;
-//     /* border-left: 1px solid rgb(220, 224, 219);
-//     border-right: 1px solid rgb(220, 224, 219); */
-// `
 const P = styled.p` 
     width: 300px; 
     @media (max-width: 700px) {
@@ -35,7 +28,6 @@ const SettingsButton = styled.button`
     }
 `
 const IMG = styled.img`
-    /* padding-left: 7px; */
     &:hover { cursor: pointer; }
 `
 

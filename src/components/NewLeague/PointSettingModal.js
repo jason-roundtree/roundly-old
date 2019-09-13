@@ -5,7 +5,7 @@ import {
     FormControl, 
     MenuItem,
     Modal, 
-    Select
+    Select 
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components'
@@ -90,7 +90,6 @@ export default function PointSettingModal(props) {
                             type="number"
                             value={values.pointValue}
                             onChange={handleChange}
-                            // className={classes.}
                             name="pointValue"
                             id="pointValue"
                         />
