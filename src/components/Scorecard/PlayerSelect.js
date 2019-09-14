@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link, withRouter } from "react-router-dom"
 import { 
     FormControl, 
     InputLabel, 
@@ -7,8 +8,7 @@ import {
 } from '@material-ui/core'
 import { styled as Mui_styled } from '@material-ui/styles'
 // import styled from 'styled-components'
-
-// TODO: set current player from props when the initial player is selected from PlayerHole and the ancestral yet-to-be-established-component
+// import data from './roundData'
 
 const MuiFormControl = Mui_styled(FormControl)({
     marginTop: 20,
@@ -18,13 +18,16 @@ const MuiFormControl = Mui_styled(FormControl)({
     }
 })
 
-export default function PlayerSelect(props) {
+function PlayerSelect(props) {
     const [ currentPlayer, setCurrentPlayer ] = useState('')
-
-    function handlePlayerChange(event) {
-        setCurrentPlayer(event.target.value)
+    function handlePlayerChange(e, child) {
+        console.log('props.history: ', props.history)
+        props.history.push(`/player-hole/${child.props.playerid}`)
+        // window.location.pathname = `/player-hole/${child.props.playerId}`
+        setCurrentPlayer(e.target.value)
+        
     }
-
+    console.log('props.history: ', props.history)
     return (
         <MuiFormControl>
             <InputLabel htmlFor="changePlayer">
@@ -33,15 +36,15 @@ export default function PlayerSelect(props) {
             <Select
                 value={currentPlayer}
                 onChange={handlePlayerChange}
-                // className={classes.select}
                 name="changePlayer"
             >
                 {props.players.map(player => {
                     return (
                         <MenuItem 
-                            value={player}
+                            value={player.name}
+                            playerid={player.id}
                         >
-                            {player}
+                            {player.name}
                         </MenuItem>
                     )
                 })}
@@ -49,3 +52,5 @@ export default function PlayerSelect(props) {
         </MuiFormControl>
     )
 }
+
+export default withRouter(PlayerSelect)

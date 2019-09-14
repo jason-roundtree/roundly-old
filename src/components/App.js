@@ -26,7 +26,7 @@ const App = () => {
       <Route path="/create-round" component={CreateRound} />
       {/* <Route path="/league/:id" component={LeagueHome} /> */}
       <Route path="/league" component={LeagueHome} />
-      <Route path="/player-hole" component={PlayerHole} />
+      <Route path="/player-hole/:id" component={PlayerHole} />
       <Route path="/round-summary" component={RoundSummary} />
       <Route exact path='/callback' component={AuthCallback} />
     </Router>

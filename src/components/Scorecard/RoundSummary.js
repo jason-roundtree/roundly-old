@@ -1,25 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 import styled from 'styled-components'
-
-const roundData = {
-    players: [
-        {name: 'Jason', id: 1},
-        {name: 'Buster', id: 2},
-        {name: 'Gob', id: 3},
-        {name: 'Gene', id: 4},
-        {name: 'Teddy', id: 5},
-        {name: 'Fishoeder', id: 6},
-    ],
-    pointsEarned: [
-        {playerId: 1, points: 40},
-        {playerId: 2, points: 30},
-        {playerId: 3, points: 20},
-        {playerId: 4, points: 40},
-        {playerId: 5, points: 50},
-        {playerId: 6, points: 10},
-    ]
-}
+import data from './roundData'
 
 const Div = styled.div`
     width: 80%;
@@ -53,8 +35,9 @@ const ThHoles = TdHoles.withComponent('th')
 
 export default function RoundSummary() {
     const [ sortedPlayersByPos, setPlayerPos ] = useState([])
+    // TODO: Move to custom hook folder? League leaderboard will probably need the same logic
     useEffect(() => {
-        const sortedScores = roundData.pointsEarned.sort((a, b) => {
+        const sortedScores = data.pointsEarned.sort((a, b) => {
             return b.points - a.points
         })
         let lastPointTotal = null, j = 0
@@ -67,8 +50,8 @@ export default function RoundSummary() {
                 sortedScores[i].place = j
                 j++
             }
-            setPlayerPos(sortedScores)
         }
+        setPlayerPos(sortedScores)
         // TODO: Is this the right thing to be passing into this array?
     }, [sortedPlayersByPos])
     
@@ -90,16 +73,22 @@ export default function RoundSummary() {
                 </thead>
                 <tbody>
                     {sortedPlayersByPos.map(player => {
-                        const playerInfo = roundData.players.find(_player => _player.id === player.playerId)
+                        const playerInfo = data.players.find(_player => {
+                            return _player.id === player.playerId
+                        })
+
                         return (
-                            // TODO: insert key once available
-                            <tr>
+                            <tr key={player.playerId}>
                                 <Td>{player.place}</Td>
-                                {/* TODO: add RR Links to player-hole */}
-                                <Td>{playerInfo.name}</Td>
-                                {/* TODO: update these to use actual data */}
+                                    <Td>
+                                        <Link to={`player-hole/${player.playerId}`}>
+                                            {playerInfo.name}
+                                        </Link>
+                                    </Td>
+                                
+                                {/* TODO: update holes to use actual data */}
                                 <TdHoles className="holes-completed">8</TdHoles>
-                                <Td className="round-point-total">15</Td>
+                                <Td className="round-point-total">{player.points}</Td>
                             </tr>
                         )}
                     )}

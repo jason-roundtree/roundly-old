@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PlayerSelect from './PlayerSelect'
 import useListItemToggle from '../../hooks/useListItemToggle'
 import { FormControl, Input, InputLabel, makeStyles } from '@material-ui/core'
 import styled from 'styled-components'
+import data from './roundData'
 
 const UL = styled.ul` margin-top: 10px; `
 const Form = styled.form`
@@ -44,23 +45,18 @@ const H3 = styled.h3`
 //     'MULTIPLE_PER_ROUND'
 // }
 
-const data = {
-    hole: 9,
-    players: ['Im a really long name', 'Jason', 'Buster', 'Gob', 'Gene'],
-    course: 'Butterfly Fields',
-    points: [
-        { id: 1, type: 'Birdie', weight: 10, frequency: 'ONCE_PER_HOLE' },
-        { id: 2, type: 'Par', weight: 2, frequency: 'ONCE_PER_HOLE' },
-        { id: 3, type: 'Bogey', weight: -5, frequency: 'ONCE_PER_HOLE' },
-        { id: 4, type: 'Lowest Round', weight: 25, frequency: 'ONCE_PER_ROUND' },
-    ]
-}
-
 export default function Hole(props) {
     // TODO: add hook for saving form
     const [ scoreInput, setScore ] = useState('')
+    const [ currentPlayer, setCurrentPlayer ] = useState('')
     const [ pointsEarned, setTogglePointsEarned ] = useListItemToggle([])
-    // TODO: Is there an easier way to get the point weight of the current point id?
+
+    const playerId = window.location.pathname.split('/')[2]
+    useEffect(() => {
+        const _player = data.players.find(_player => _player.id === playerId)
+        setCurrentPlayer(_player.name)
+    }, [playerId])
+
     const totalPointsEarned = () => {
         return pointsEarned.reduce((total, current) => {
                 let pointWeightIndex = data.points.findIndex(point => {
@@ -76,7 +72,6 @@ export default function Hole(props) {
                 return pointEarned.frequency === 'ONCE_PER_HOLE'
             })
         }
-        
     }
 
     const pointsEarnedIncludesPoint = (pointId) => {
@@ -95,21 +90,20 @@ export default function Hole(props) {
         }
     }
 
-    console.log('pointsEarned: ', pointsEarned)
-    console.log('scoreInput: ', scoreInput)
-
+    // console.log('playerId: ', playerId)
+    // console.log('currentPlayer: ', currentPlayer)
+    
     return (
+        
         <Form>
             <h2>Hole {data.hole}</h2>
             <H3>{data.course}</H3>
-            <H3>''First Name of Currently Selected Player''</H3>
+            <H3>{currentPlayer}</H3>
             <PlayerSelect players={data.players} />
 
             <UL>
                 {data.points.map((point, i) => {
                     return (
-                        // TODO: disable other score-based points if another hole-based point has been selected
-
                         <ButtonListItem 
                             key={i}
                             onClick={() => setTogglePointsEarned({   
@@ -130,7 +124,6 @@ export default function Hole(props) {
             </P>
             {/* TODO: Add condition that checks for tracking of Net Score; if true add Gross Score and Net Score fields */}
             <FormControl>
-                {/* TODO: add breakpoint */}
                 <InputLabel htmlFor="scoreInput">Hole Score</InputLabel>
                 <Input 
                     type="number"
