@@ -23,11 +23,10 @@ function PlayerSelect(props) {
     function handlePlayerChange(e, child) {
         console.log('props.history: ', props.history)
         props.history.push(`/player-hole/${child.props.playerid}`)
-        // window.location.pathname = `/player-hole/${child.props.playerId}`
         setCurrentPlayer(e.target.value)
         
     }
-    console.log('props.history: ', props.history)
+    // console.log('props.history: ', props.history)
     return (
         <MuiFormControl>
             <InputLabel htmlFor="changePlayer">

@@ -45,7 +45,7 @@ const H3 = styled.h3`
 //     'MULTIPLE_PER_ROUND'
 // }
 
-export default function Hole(props) {
+export default function PlayerHole(props) {
     // TODO: add hook for saving form
     const [ scoreInput, setScore ] = useState('')
     const [ currentPlayer, setCurrentPlayer ] = useState('')
@@ -53,8 +53,8 @@ export default function Hole(props) {
 
     const playerId = window.location.pathname.split('/')[2]
     useEffect(() => {
-        const _player = data.players.find(_player => _player.id === playerId)
-        setCurrentPlayer(_player.name)
+        const player = data.players.find(_player => _player.id === playerId)
+        setCurrentPlayer(player.name)
     }, [playerId])
 
     const totalPointsEarned = () => {
