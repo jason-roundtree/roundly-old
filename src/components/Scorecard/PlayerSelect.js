@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, withRouter } from "react-router-dom"
+import React, { useRef } from 'react'
+import { withRouter } from "react-router-dom"
 import { 
     FormControl, 
     InputLabel, 
@@ -7,8 +7,6 @@ import {
     Select 
 } from '@material-ui/core'
 import { styled as Mui_styled } from '@material-ui/styles'
-// import styled from 'styled-components'
-// import data from './roundData'
 
 const MuiFormControl = Mui_styled(FormControl)({
     marginTop: 20,
@@ -19,12 +17,11 @@ const MuiFormControl = Mui_styled(FormControl)({
 })
 
 function PlayerSelect(props) {
-    const [ currentPlayer, setCurrentPlayer ] = useState('')
+    const selectEl = useRef(null);
     function handlePlayerChange(e, child) {
         console.log('props.history: ', props.history)
         props.history.push(`/player-hole/${child.props.playerid}`)
-        setCurrentPlayer(e.target.value)
-        
+        selectEl.current.blur()
     }
     // console.log('props.history: ', props.history)
     return (
@@ -33,7 +30,7 @@ function PlayerSelect(props) {
                 Change Player
             </InputLabel>
             <Select
-                value={currentPlayer}
+                ref={selectEl}
                 onChange={handlePlayerChange}
                 name="changePlayer"
             >

@@ -8,12 +8,12 @@ const roundData = {
         { id: 4, type: 'Lowest Round', weight: 25, frequency: 'ONCE_PER_ROUND' },
     ],
     players: [
-        {name: 'Jason', id: '1'},
+        {name: 'Tobias', id: '1'},
         {name: 'Buster', id: '2'},
         {name: 'Gob', id: '3'},
         {name: 'Gene', id: '4'},
-        {name: 'Teddy', id: '5'},
-        {name: 'Fishoeder', id: '6'},
+        {name: 'Lucille', id: '5'},
+        {name: 'Annyong', id: '6'},
     ],
     pointsEarned: [
         {playerId: '1', points: 40},
