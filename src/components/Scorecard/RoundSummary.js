@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
+import usePositionRank from '../../hooks/usePositionRank'
 import styled from 'styled-components'
 import data from './roundData'
 
@@ -34,29 +35,8 @@ const ThHoles = TdHoles.withComponent('th')
 
 
 export default function RoundSummary() {
-    const [ sortedPlayersByPos, setPlayerPos ] = useState([])
-    // TODO: Move to custom hook folder? League leaderboard will probably need the same logic
-    useEffect(() => {
-        const sortedScores = data.pointsEarned.sort((a, b) => {
-            return b.points - a.points
-        })
-        let lastPointTotal = null, j = 0
-        for (let i = 0; i < sortedScores.length; i++) {
-            if (sortedScores[i].points !== lastPointTotal) {
-                j++
-                sortedScores[i].place = j
-                lastPointTotal = sortedScores[i].points
-            } else {
-                sortedScores[i].place = j
-                j++
-            }
-        }
-        setPlayerPos(sortedScores)
-        // TODO: Is this the right thing to be passing into this array?
-    }, [sortedPlayersByPos])
-    
+    const sortedPlayersByPos = usePositionRank(data.pointsEarned)
     // console.log('sortedPlayersByPos: ', sortedPlayersByPos)
-
     return (
         <Div>
             <h2>Round Summary</h2>
