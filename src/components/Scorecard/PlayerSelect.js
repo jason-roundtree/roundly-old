@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { withRouter } from "react-router-dom"
 import { 
     FormControl, 
@@ -17,21 +17,22 @@ const MuiFormControl = Mui_styled(FormControl)({
 })
 
 function PlayerSelect(props) {
-    const selectEl = useRef(null);
-    function handlePlayerChange(e, child) {
-        console.log('props.history: ', props.history)
+    function handlePlayerChange(_, child) {
+        // console.log('props.history: ', props.history)
         props.history.push(`/player-hole/${child.props.playerid}`)
-        selectEl.current.blur()
     }
-    // console.log('props.history: ', props.history)
+
     return (
         <MuiFormControl>
-            <InputLabel htmlFor="changePlayer">
+            {/* <InputLabel htmlFor="changePlayer" focused={playerSelectFocused}>
                 Change Player
-            </InputLabel>
+            </InputLabel> */}
+            {/* TODO: Figure out how to match this font color with other inputs? */}
+            {/* TODO: Is there a way to use InputLabel and have the label move back inside of the select input once a new player has been selected? */}
             <Select
-                ref={selectEl}
                 onChange={handlePlayerChange}
+                displayEmpty={true}
+                renderValue={() => 'Change Player'}
                 name="changePlayer"
             >
                 {props.players.map(player => {

@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import data from './roundData'
 
 const UL = styled.ul` margin-top: 10px; `
+
 const Form = styled.form`
     width: 80%;
     margin: 40px auto 0;
@@ -128,7 +129,7 @@ export default function PlayerHole(props) {
                 <Input 
                     type="number"
                     name="scoreInput"
-                    onChange={(e) => setScore(e.target.value)}
+                    onChange={e => setScore(e.target.value)}
                     value={scoreInput}
                     autoComplete="off"
                     
