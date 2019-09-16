@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from "react-router-dom"
 import usePositionRank from '../../hooks/usePositionRank'
 import styled from 'styled-components'
-import data from '../dummyData'
+import data from '../dummyData'       
 
 const Div = styled.div`
     width: 80%;
@@ -26,31 +25,23 @@ const Th = styled.th`
     }
 `
 const Td = Th.withComponent('td')
-const TdHoles = styled(Td)`
-    @media (max-width: 700px) {
-        display: none;
-    }
-`
-const ThHoles = TdHoles.withComponent('th')
-const TdPlace = styled.td`
+const PlaceTd = styled.td`
     font-weight: 500;
 `
 
+// TODO: Create one standings component for this and round standings?
 export default function RoundSummary() {
     const sortedPlayersByPos = usePositionRank(data.pointsEarned)
-    // console.log('sortedPlayersByPos: ', sortedPlayersByPos)
     return (
         <Div>
-            <h2>Round Summary</h2>
-            <h3>Course Name</h3>
+            <h2>League Standings</h2>
+            <h3>{data.leagueName}</h3>
             <Table>
                 <thead>
                     <tr>
                         <Th>Place</Th>
                         <Th>Player</Th>
-                        {/* TODO: add funtionality that checks whether group wants to track scores/points by hole */}
-                        <ThHoles>Holes Completed</ThHoles>
-                        <Th>Round Point Total</Th>
+                        <Th>Total Points Earned</Th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,14 +52,8 @@ export default function RoundSummary() {
 
                         return (
                             <tr key={player.playerId}>
-                                <TdPlace>{player.place}</TdPlace>
-                                <Td>
-                                    <Link to={`player-hole/${player.playerId}`}>
-                                        {playerInfo.name}
-                                    </Link>
-                                </Td>
-                                {/* TODO: update holes to use actual data */}
-                                <TdHoles className="holes-completed">8</TdHoles>
+                                <PlaceTd>{player.place}</PlaceTd>
+                                <Td>{playerInfo.name}</Td>
                                 <Td className="round-point-total">{player.points}</Td>
                             </tr>
                         )}
@@ -76,6 +61,6 @@ export default function RoundSummary() {
                 </tbody>
             </Table>
         </Div>
-        
     )
 }
+            

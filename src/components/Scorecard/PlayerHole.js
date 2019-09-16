@@ -3,7 +3,7 @@ import PlayerSelect from './PlayerSelect'
 import useListItemToggle from '../../hooks/useListItemToggle'
 import { FormControl, Input, InputLabel, makeStyles } from '@material-ui/core'
 import styled from 'styled-components'
-import data from './roundData'
+import data from '../dummyData'
 
 const UL = styled.ul` margin-top: 10px; `
 

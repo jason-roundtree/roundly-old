@@ -1,4 +1,5 @@
-const roundData = {
+const data = {
+    leagueName: 'My Cool League',
     hole: 9,
     course: 'Butterfly Fields',
     points: [
@@ -24,4 +25,5 @@ const roundData = {
         {playerId: '6', points: 10},
     ]
 }
-export default roundData
+
+export default data
