@@ -37,7 +37,7 @@ export default class LeagueHome extends Component {
                     })}
                 </ul>
 
-                <H2>Point Settings</H2>
+                <H2>Default Point Settings</H2>
                 <PointSettings />
                 
             </div>
