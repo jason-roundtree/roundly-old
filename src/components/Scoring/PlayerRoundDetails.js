@@ -16,10 +16,6 @@ const Div = styled.div`
     margin: 40px auto 0;
     padding: 20px;
 `
-const H3 = styled.h2`
-    font-weight: 500;
-    font-size: 1em;
-`
 const PointsEarned = styled.p`
     font-size: 1.3em;
     font-weight: 700;
@@ -39,6 +35,13 @@ const ListItem = styled.li`
 const BoldSpan = styled.span`
     font-weight: 500;
 `
+const Button = styled.button`
+    margin-top: 1.2em;
+`
+const H3 = styled.h3`
+    font-weight: 500;
+    /* font-size: 1em; */
+`
 
 export default function PlayerRoundDetails() {
     const total = pointsBreakdown.reduce((total, current) => {
@@ -48,6 +51,7 @@ export default function PlayerRoundDetails() {
         
         <Div>
             {/* TODO: should I be using multiple h3s? */}
+            {/* TODO: move these styles to global */}
             <h2>Round Point Breakdown</h2>
             <H3>Player Name</H3>
             <H3>Course Name</H3>
@@ -73,13 +77,19 @@ export default function PlayerRoundDetails() {
                     )
                 })}
             </ul>
-            <Link 
-                to='/player-scorecard'
-            >
-                <span>Hole-by-hole Scorecard</span>
+            
+            {/* TODO: Instead of buttons should i use breadcrumbs since there's multiple levels they can return to? */}
+            <Link to='/player-scorecard'>
+                <Button>Hole-by-hole Scorecard</Button>   
+            </Link>
+
+            <br />
+
+            <Link to={`/player-rounds/x`}>
+                <Button>
+                    Return to Rounds
+                </Button>
             </Link>
         </Div>
-       
-
     )
 }
