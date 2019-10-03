@@ -5,7 +5,9 @@
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Poppins', sans-serif;   
+  /* font-family: 'Poppins', sans-serif;   
+   */
+   font-family: 'Anaheim', sans-serif;
 }
 li {
   list-style-type: none;
