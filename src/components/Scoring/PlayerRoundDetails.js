@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import PageHeaderBlock from '../PageHeaderBlock'
 
 // TODO: move this file and PlayerRounds to Scorecard folder?
 const pointsBreakdown = [
@@ -38,10 +39,10 @@ const BoldSpan = styled.span`
 const Button = styled.button`
     margin-top: 1.2em;
 `
-const H3 = styled.h3`
-    font-weight: 500;
-    /* font-size: 1em; */
-`
+// const H3 = styled.h3`
+//     font-weight: 500;
+//     /* font-size: 1em; */
+// `
 
 export default function PlayerRoundDetails() {
     const total = pointsBreakdown.reduce((total, current) => {
@@ -53,9 +54,10 @@ export default function PlayerRoundDetails() {
             {/* TODO: should I be using multiple h3s? */}
             {/* TODO: move these styles to global */}
             <h2>Round Point Breakdown</h2>
-            <H3>Player Name</H3>
+            {/* <H3>Player Name</H3>
             <H3>Course Name</H3>
-            <H3>9/28/2019</H3>
+            <H3>9/28/2019</H3> */}
+            <PageHeaderBlock />
 
             <PointsEarned>{total} Points Earned</PointsEarned>
 

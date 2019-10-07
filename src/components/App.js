@@ -1,4 +1,5 @@
 import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
 import About from './About'
 import Home from './Home'
 import Login from './Login'
@@ -18,10 +19,20 @@ import RoundSummary from './Scoring/RoundSummary'
 import AuthCallback from './AuthCallback';
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
+const GlobalCss = withStyles({
+  // @global is handled by jss-plugin-global.
+  '@global': {
+    '.MuiFormLabel-root, .MuiSelect-root': {
+      fontSize: '.8em',
+    },
+  },
+})(() => null);
+
 const App = () => {
   return (
     <Router>
       <Header />
+      <GlobalCss />
       <Route exact path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/login" component={Login} />

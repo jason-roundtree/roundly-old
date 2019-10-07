@@ -57,12 +57,14 @@ export default function PlayerScorecard() {
                                 // TODO: How to change this so that <tr> is outside the conditional, therefore only needing to have 1 Total cell? Can fragments help??
                                 <tr>    
                                     {generateScorecardHeader()
-                                        .slice(0, 9).map(score => (
+                                        .slice(0, 9)
+                                        .map(score => (
                                             <HoleNumberTh key={score}>{score}</HoleNumberTh>
                                         ))}
                                     <th style={{fontWeight: 'bold'}}>In</th>
                                     {generateScorecardHeader()
-                                        .slice(9, 18).map(score => (
+                                        .slice(9, 18)
+                                        .map(score => (
                                             <HoleNumberTh key={score}>{score}</HoleNumberTh>
                                         ))}
                                     <th style={{fontWeight: 'bold'}}>Out</th>
