@@ -18,8 +18,9 @@ const ButtonListItem = styled.li`
     justify-content: space-between;
     padding: 10px;
     margin: 5px 5px 5px 0;
-    border: 1px solid rgb(122, 213, 178);;
+    border: 1px solid rgb(122, 213, 178);
     width: 60%;
+    /* TODO: change all 700s to 768? */
     @media (max-width: 700px) {
         width: 100%;
     }
@@ -39,6 +40,7 @@ const TotalPointsSpan = styled.span`
 `
 const H3 = styled.h3`
     font-weight: 500;
+    font-size: 1em;
 `
 // const enum = { 
 //     'ONCE_PER_HOLE',
@@ -98,6 +100,8 @@ export default function PlayerHole(props) {
         
         <Form>
             <h2>Hole {data.hole}</h2>
+            {/* TODO: should I be using multiple h3s? */}
+            {/* TODO: move these styles to global */}
             <H3>{data.course}</H3>
             <H3>{currentPlayer}</H3>
             <PlayerSelect players={data.players} />

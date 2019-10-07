@@ -53,6 +53,7 @@ export default function RoundSummary() {
                         return (
                             <tr key={player.playerId}>
                                 <PlaceTd>{player.place}</PlaceTd>
+                                {/* TODO: Add Link to route to PlayerRounds */}
                                 <Td>{playerInfo.name}</Td>
                                 <Td className="round-point-total">{player.points}</Td>
                             </tr>

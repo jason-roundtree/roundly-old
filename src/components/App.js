@@ -37,9 +37,12 @@ const App = () => {
       {/* TODO: add league and round id */}
       <Route path="/round-summary" component={RoundSummary} />
       {/* TODO: add league, player and round id */}
-      <Route path="/player-rounds" component={PlayerRounds} />
-      {/* TODO: add round and player id */}
-      <Route path="/player-round" component={PlayerRoundDetails} />
+      <Route exact path="/player-rounds/:playerId" component={PlayerRounds} />
+      {/* TODO: which one is the best way?? OR when should IDs be in query params vs query string or not at all?? */}
+      <Route path="/player-rounds/:playerId/round/:roundId" component={PlayerRoundDetails} />
+      {/* <Route path="/player-rounds/:playerId?player-round=roundId" component={PlayerRoundDetails} /> */}
+      {/* <Route path="/player-round/:playerId" component={PlayerRoundDetails} /> */}
+
       {/* TODO: add round and player id */}
       <Route path="/player-scorecard" component={PlayerScorecard} />
 

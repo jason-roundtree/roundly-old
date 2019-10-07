@@ -43,6 +43,8 @@ export default function RoundSummary() {
         <Div>
             <h2>Round Summary</h2>
             <h3>Course Name</h3>
+            <h3>9/28/2019</h3>
+            
             <Table>
                 <thead>
                     <tr>
