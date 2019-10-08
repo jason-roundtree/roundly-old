@@ -24,14 +24,13 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
     paper: {
         position: 'absolute',
-        width: 400,
+        width: '85%',
         backgroundColor: theme.palette.background.paper,
         border: '1px solid rgb(191, 192, 196)',
         boxShadow: theme.shadows[2],
-        padding: theme.spacing(2, 4, 3),
+        padding: '5px 15px',
     },
     formControl: {
-        margin: theme.spacing(1),
         minWidth: 120,
     },
 }))

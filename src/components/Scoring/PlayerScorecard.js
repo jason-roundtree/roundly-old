@@ -9,12 +9,18 @@ const data = {
     // scores: ['4', '3', '4', '5', '4', '4', '3', '4', '7']
 }
 
-const H3 = styled.h3`
-    font-weight: 500;
-    font-size: 1em;
+const Div = styled.div`
+    /* width: 80%; */
+    /* margin: 20px auto 0; */
+    /* padding: 20px; */
+    overflow-x: auto;
+    padding-bottom: 5px;
+    /* @media (max-width: 700px) {
+        margin: 0 auto;
+    } */
 `
 const Table = styled.table`
-    /* TODO: is overflowX on containing div enough to make the table responsive? */
+    margin-top: 20px;
     /* TODO: POST MVP should I also add a button that allows the table to be oriented vertically? */
 `
 const ShadedTh = styled.th`
@@ -44,7 +50,7 @@ export default function PlayerScorecard() {
     // TODO: add useEffect to pull data and set score state
     
     return (
-        <div style={{overflowX: 'auto', paddingBottom: '5px'}}>
+        <Div>
             <h2>Player Scorecard</h2>
             <PageHeaderBlock />
             
@@ -116,6 +122,6 @@ export default function PlayerScorecard() {
                     </tr> */}
                 </tbody>
             </Table>
-        </div>
+        </Div>
     )
 }

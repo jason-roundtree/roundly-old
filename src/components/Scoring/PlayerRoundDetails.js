@@ -13,9 +13,9 @@ const pointsBreakdown = [
 ]
 
 const Div = styled.div`
-    width: 80%;
-    margin: 40px auto 0;
-    padding: 20px;
+    /* width: 80%;
+    margin: 20px auto 0;
+    padding: 20px; */
 `
 const PointsEarned = styled.p`
     font-size: 1.3em;

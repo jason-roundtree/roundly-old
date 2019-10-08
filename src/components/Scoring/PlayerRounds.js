@@ -32,7 +32,9 @@ const rounds = [
         points: -5
     },
 ]
-
+const PageDiv = styled.div`
+    margin: 0 auto;
+`
 const GridContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
@@ -45,9 +47,6 @@ const GridContainer = styled.div`
         border: 1px solid black;
         padding: 5px;
     }
-`
-const PageDiv = styled.div`
-    padding: 40px 20px 20px;
 `
 const H3 = styled.h3`
     font-weight: 500;

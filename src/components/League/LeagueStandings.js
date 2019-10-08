@@ -4,15 +4,16 @@ import styled from 'styled-components'
 import data from '../dummyData'       
 
 const Div = styled.div`
-    width: 80%;
+    /* width: 80%;
     margin: 40px auto 0;
-    padding: 20px;
-    @media (max-width: 700px) {
+    padding: 20px; */
+    /* @media (max-width: 700px) {
         margin: 10px auto 0;
         padding: 0;
-    }
+    } */
 `
 const Table = styled.table`
+    margin-top: 20px;
     width: 70%;
     @media (max-width: 700px) {
         width: 100%;
@@ -33,7 +34,7 @@ const PlaceTd = styled.td`
 export default function RoundSummary() {
     const sortedPlayersByPos = usePositionRank(data.pointsEarned)
     return (
-        <Div>
+        <>
             <h2>League Standings</h2>
             <h3>{data.leagueName}</h3>
             <Table>
@@ -61,7 +62,7 @@ export default function RoundSummary() {
                     )}
                 </tbody>
             </Table>
-        </Div>
+        </>
     )
 }
             

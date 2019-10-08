@@ -10,9 +10,9 @@ import {
 import { styled as Mui_styled } from '@material-ui/styles'
 
 const Form = styled.form`
-    width: 80%;
+    /* width: 80%;
     margin: 40px auto 0;
-    padding: 20px;
+    padding: 20px; */
 `
 const H2 = styled.h2`
     margin-top: 20px;
@@ -24,7 +24,7 @@ const Button = styled.button`
     margin-top: 1.2em;
 `
 const MuiFormControl = Mui_styled(FormControl)({
-    marginTop: 20,
+    marginTop: 10,
     width: '60%',
     // minWidth: 320,
     '@media (max-width: 700px)': {
@@ -32,7 +32,7 @@ const MuiFormControl = Mui_styled(FormControl)({
     }
 })
 
-export default class CreateNewLeague extends Component {
+export default class CreateLeague extends Component {
     constructor(props) {
         super(props)
         this.state = {

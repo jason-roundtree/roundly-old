@@ -4,10 +4,6 @@ import { players } from '../../db'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const H2 = styled.h2`
-    margin-top: 20px;
-`
-
 export default class LeagueHome extends Component {
     state = {
         leagueName: '',
@@ -20,24 +16,24 @@ export default class LeagueHome extends Component {
     render() {
         return (
             <div>
-                <h1>League Name</h1>
-                <H2>Season End Date: 11/30/2019</H2>
+                <h2>League Name</h2>
+                <h3>Season End Date: 11/30/2019</h3>
 
-                <H2>Rounds</H2>
+                <h3>Rounds</h3>
                 <Link to="create-round">
                     <button>Create New Round</button>
                 </Link>
 
-                <H2>Standings</H2>
+                <h3>Standings</h3>
 
-                <H2>Players</H2>
+                <h3>Players</h3>
                 <ul>
                     {players.map(player => {
                         return <li>{player.name}</li>
                     })}
                 </ul>
 
-                <H2>Default Point Settings</H2>
+                <h3>Default Point Settings</h3>
                 <PointSettings />
                 
             </div>

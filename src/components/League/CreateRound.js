@@ -11,9 +11,9 @@ import { styled as Mui_styled } from '@material-ui/styles'
 import { players } from '../../db'
 
 const Form = styled.form`
-    width: 80%;
-    margin: 40px auto 0;
-    padding: 20px;
+    /* width: 80%;
+    margin: 20px auto 0;
+    padding: 20px; */
 `
 const P = styled.p`
     margin-top: 20px;
@@ -32,7 +32,7 @@ const SaveButton = styled.button`
     margin-top: 1.2em;
 `
 const MuiFormControl = Mui_styled(FormControl)({
-    marginTop: 20,
+    marginTop: 10,
     width: '60%',
     // minWidth: 320,
     '@media (max-width: 700px)': {
@@ -66,7 +66,7 @@ export default function CreateRound() {
                 // TODO: setup axios post request
                 // onSubmit={}
             >
-                <h1>Create New Round</h1>
+                <h2>Create New Round</h2>
                 <MuiFormControl>
                     <InputLabel htmlFor="roundDate">Round Date</InputLabel>
                     <Input 

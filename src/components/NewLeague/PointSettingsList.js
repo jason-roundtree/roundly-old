@@ -11,13 +11,12 @@ const ListItem = styled.li`
     padding: 5px 10px;
     margin: 5px;
     border: 1px solid rgb(191, 192, 196);
-    width: 100%;
     /* max-width: 400px; */
 `
 const P = styled.p` 
     width: 300px; 
     @media (max-width: 700px) {
-        font-size: .75em;
+        font-size: .85em;
     }
 `
 const SettingsButton = styled.button`    

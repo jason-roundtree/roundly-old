@@ -8,9 +8,11 @@ import data from '../dummyData'
 const UL = styled.ul` margin-top: 10px; `
 
 const Form = styled.form`
-    width: 80%;
-    margin: 40px auto 0;
-    padding: 20px;
+    /* width: 80%;
+    margin: 0 auto; */
+    /* @media (max-width: 700px) {
+        width: 100%;
+    } */
 `
 const ButtonListItem = styled.li`
     display: flex;
