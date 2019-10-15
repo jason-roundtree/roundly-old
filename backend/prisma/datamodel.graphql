@@ -1,0 +1,111 @@
+type User {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+  email: String! @unique
+  password: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  leagues: [League!]!
+}
+
+type League {
+  id: ID! @unique
+  name: String!
+  startDate: DateTime
+  endDate: DateTime
+  # determines if league shows up on User's dashboard
+  archived: Boolean! @default(value: false)
+  players: [LeaguePlayer!]!
+  prizes: [LeaguePrize!]!
+}
+
+type LeaguePrize {
+  id: ID! @unique
+  league: League!
+  description: String!
+  prize: String!
+}
+
+type LeaguePlayer {
+  id: ID! @unique
+  user: User!
+  leagueId: League!
+  customName: String @unique
+  # This field is initially default set to true if they're the user that sets up the league 
+  # Future access must be given by league creator or another player who has been given authorization
+  authorizedForAdmin: Boolean! @default(value: false)
+  rounds: [Round!]!
+  handicap: Float
+}
+
+type Round {
+  id: ID! @unique
+  golfCourse: String!
+  holesPlayed: Int
+  date: DateTime!
+  players: [LeaguePlayer!]!
+  name: String
+  pointSettings: [RoundPointSetting!]!
+  playerScoresByHole: [PlayerHole!]!
+}
+
+# TODO: Is this type even necessary or is it redundant since points can be calculated from PointEarned?
+type PlayerRound {
+  # TODO: is an id: ID! field needed here?
+  id: ID! @unique
+  round: Round!
+  points: [PointEarned!]!
+  # TODO: How are these 2 fields affect things if players are recording hole-by-hole scores
+  holesPlayed: Int
+  roundScores: [PlayerHole!]! 
+  # This field will be set to whatever the player's league-level handicap is on the day of the round 
+  handicap: Float
+  # TODO: link to PlayerHole?
+}
+
+enum PointFrequency {
+  ONCE_PER_ROUND
+  ONCE_PER_HOLE
+  MULTIPLE_PER_HOLE
+}
+
+type LeaguePointSetting {
+  id: ID! @unique
+  league: League!
+  name: String!
+  weight: Float!
+  frequency: PointFrequency
+  defaultRoundPoint: Boolean! @default(value: true)
+}
+
+type RoundPointSetting {
+  # TODO: is an id: ID! field needed here?
+  id: ID! @unique
+  round: Round!
+  name: String!
+  weight: Float!
+  frequency: PointFrequency
+}
+
+# TODO: Am I going about this correctly?
+type PointEarned {
+  # TODO: is an id: ID! field needed here?
+  id: ID! @unique
+  pointId: RoundPointSetting!
+  league: League!
+  round: Round!
+  player: LeaguePlayer!
+}
+
+type PlayerHole {
+  # TODO: is an id: ID! field needed here?
+  id: ID! @unique
+  round: Round!
+  player: LeaguePlayer!
+  hole: Int!
+  pointEarned: [PointEarned!]!
+  grossScore: Int!
+  # TODO: how to make this non-nullable if they're tracking handicaps?
+  netScore: Int
+}
