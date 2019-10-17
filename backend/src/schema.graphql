@@ -1,7 +1,9 @@
 type Query {
+    user(userId: ID!): [User!]!
+    users(leagueId: ID!): [User!]!
     userLeagues(userId: ID!): [League!]!
-    # TODO: do other User queries need to go here for auth or anything else?
-    league(leagueId: ID!): League!
+    leagueBasic(leagueId: ID!): League!
+    leaguePlayers(leagueId: ID!): [Players!]!
     leaguePointSettings(leagueId: ID!): [LeaguePointSetting!]!
     roundPointSettings(roundId: ID!): [RoundPointSetting!]!
     roundsScheduled(leagueId: ID!): [Round!]!
@@ -19,38 +21,37 @@ type Query {
 # - Should I move object names as prefix (eg userCreate instead of createUser)
 # - mutations for grossScore
 
-
 type Mutation {
     # User 
     createUser(input: CreateUserInput!): AuthPayload!
     loginUser(email: String!, password: String!): AuthPayload!
     updateUser(input: UpdateUserInput!): User!
     # League  (must be authorizedAsAdmin to change league settings)
-    createLeague(input: CreateLeagueInput!) League!
-    deleteLeague(leagueId: ID!)
+    createLeague(input: CreateLeagueInput!): League!
+    deleteLeague(leagueId: ID!): League!
     updateBasicLeagueInfo(leagueId: ID!, input: UpdateBasicLeagueInput): League!
     createLeaguePointSetting(leagueId: ID!, input: CreateLeaguePointSettingInput): LeaguePointSetting!
     updateLeaguePointSetting(leagueId: ID!, input: UpdateLeaguePointSettingInput): LeaguePointSetting!
-    deleteLeaguePointSetting(leagueId: ID!)
+    deleteLeaguePointSetting(leagueId: ID!): PointSetting!
     createRoundPointSetting(roundId: ID! input: CreateRoundPointSettingInput): RoundPointSetting!
     updateRoundPointSetting(roundId: ID! input: UpdateRoundPointSettingInput): RoundPointSetting!
-    deleteRoundPointSetting(roundId: ID!)
+    deleteRoundPointSetting(roundId: ID!): Round!
     createLeaguePlayer(playerId: ID!, input: CreateLeaguePlayerInput): LeaguePlayer!
     updateLeaguePlayer(playerId: ID!, input: UpdateLeaguePlayerInput): LeaguePlayer!
-    deleteLeaguePlayer(playerId: ID!)
+    deleteLeaguePlayer(playerId: ID!): LeaguePlayer!
     createRound(leagueId: ID!, input: CreateRoundInput): Round!
     updateRound(roundId: ID!, input: UpdateRoundInput): Round!
-    deleteRound(leagueId: ID!)
+    deleteRound(roundId: ID!): Round!
     addPlayerToRound(roundId: ID!, playerId: ID!, input: AddPlayerToRoundInput): Round!
     updatePlayerRound(roundId: ID!, playerId: ID!, input: UpdatePlayerRoundInput): Round!
-    deletePlayerFromRound(roundId: ID!, playerId: ID!)
+    deletePlayerFromRound(roundId: ID!, playerId: ID!): Player!
     # - is leagueID necessary in add/UpdatePlayerPoint? What should I be returning?
     addPlayerPoint(playerId: ID!, roundId: ID!, leagueId: ID!):  PlayerHole!
     updatePlayerPoint(playerId: ID!, roundId: ID!, leagueId: ID!): PlayerHole!
-    deletePlayerPoint(playerId: ID!, roundId: ID!): [PlayerHole!]!
+    deletePlayerPoint(playerId: ID!, roundId: ID!): PointEarned!
     addLeaguePrize(prizeId: ID!, input: addLeaguePrizeInput): LeaguePrize!
     updateLeaguePrize(prizeId: ID!, input: updateLeaguePrizeInput): LeaguePrize!
-    deleteLeaguePrize(prizeId: ID!)
+    deleteLeaguePrize(prizeId: ID!): LeaguePrize!
 
 
     # TODO: Implement these Comment mutations after MVP
@@ -186,7 +187,6 @@ type Round {
     date: DateTime!
     players: [LeaguePlayer!]!
     name: String
-    # TODO: should I keep this completed field??
     completed: Boolean
     pointSettings: [RoundPointSetting!]!
     playerScoresByHole: [PlayerHole!]!

@@ -16,14 +16,16 @@ type League {
   endDate: DateTime
   # determines if league shows up on User's dashboard
   archived: Boolean! @default(value: false)
-  players: [LeaguePlayer!]!
-  prizes: [LeaguePrize!]!
+  pointSettings: [LeaguePointSetting!]! @relation(name: "LeagueToPlayer", onDelete: CASCADE)
+  players: [LeaguePlayer!]! @relation(name: "LeagueToPlayer", onDelete: CASCADE)
+  rounds: [Round!]! @relation(name: "LeagueToRound", onDelete: CASCADE)
+  prizes: [LeaguePrize!]! @relation(name: "LeagueToPrize", onDelete: CASCADE)
 }
 
 type LeaguePrize {
   id: ID! @unique
-  league: League!
   description: String!
+  league: League!
   prize: String!
 }
 
@@ -41,6 +43,7 @@ type LeaguePlayer {
 
 type Round {
   id: ID! @unique
+  league: League!
   golfCourse: String!
   holesPlayed: Int
   date: DateTime!

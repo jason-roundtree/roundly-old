@@ -11,7 +11,8 @@ import Query from './resolvers/Query'
 import Round from './resolvers/Round'
 import RoundPointSetting from './resolvers/RoundPointSetting'
 import User from './resolvers/User'
-
+import db from './db'
+import './prisma'
 
 const server = new GraphQLServer({
     // This may need to be relative to the root of the whole project, not just the backend root
@@ -31,7 +32,8 @@ const server = new GraphQLServer({
         User
     },
     context: {
-
+        db,
+        // pubSub
     }
 })
 
