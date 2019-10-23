@@ -9,16 +9,16 @@ export const players = [
 ]
 
 export const pointSettings = [
-    {type: 'holeInOne', weight: 100},
-    {type: 'eagle', weight: 40},
-    {type: 'lowestRound', weight: 25},
-    {type: 'birdie', weight: 15},
-    {type: 'par', weight: 4},
-    {type: 'bogey', weight: -5},
-    {type: 'doubleBogey', weight: -15},
-    {type: 'grtDoubleBogey', weight: -25},
-    {type: 'swearing', weight: -20},
-    {type: 'throwClub', weight: -30}
+    {id: '1', type: 'Hole in One', weight: 100},
+    {id: '2', type: 'Eagle', weight: 40},
+    {id: '3', type: 'Lowest Round', weight: 25},
+    {id: '4', type: 'Birdie', weight: 15},
+    {id: '5', type: 'Par', weight: 4},
+    {id: '6', type: 'Bogey', weight: -5},
+    {id: '7', type: 'Double Bogey', weight: -15},
+    {id: '8', type: 'Triple Bogey+', weight: -25},
+    {id: '9', type: 'Swearing', weight: -20},
+    {id: '10', type: 'Throw Club', weight: -30}
 ]
 
 // GraphQL dummy data

@@ -48,6 +48,7 @@ const PointType = styled.span`
 `
 
 export default function PointSettingModal(props) {
+    console.log('ASASA: ', props)
     // const [ pointWeightInput, setpointWeightInput ] = useState('0')
     const [ values, setValues ] = React.useState({
         'pointType': props.pointType,

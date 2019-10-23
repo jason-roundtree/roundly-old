@@ -1,42 +1,41 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PointSettings from './PointSettings'
 import { players } from '../../db'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export default class LeagueHome extends Component {
-    state = {
-        leagueName: '',
-        endDate: '',
-        players: [],
-    }
-    componentDidMount() {
+const H3 = styled.h3`
+    font-weight: 700;
+    font-size: 1em;
+    margin-top: 10px; 
+`
 
-    }
-    render() {
-        return (
-            <div>
-                <h2>League Name</h2>
-                <h3>Season End Date: 11/30/2019</h3>
+export default function LeagueHome() {
+    return (
+        <div>
+            <h2>League Name</h2>
+            <H3>Season End Date:</H3>
+            <p>11/30/2019</p>
 
-                <h3>Rounds</h3>
-                <Link to="create-round">
-                    <button>Create New Round</button>
-                </Link>
+            {/* TODO: consider making all of these H3s links to dedicated pages */}
+            <H3>Rounds:</H3>
+            <Link to="create-round">
+                <button>Create New Round</button>
+            </Link>
 
-                <h3>Standings</h3>
+            <H3>Standings:</H3>
 
-                <h3>Players</h3>
-                <ul>
-                    {players.map(player => {
-                        return <li>{player.name}</li>
-                    })}
-                </ul>
+            {/* TODO: make alphabetical */}
+            <H3>Players:</H3>
+            <ul>
+                {players.map(player => {
+                    return <li>{player.name}</li>
+                })}
+            </ul>
 
-                <h3>Default Point Settings</h3>
-                <PointSettings />
-                
-            </div>
-        )
-    }
+            <H3>Default Point Settings</H3>
+            <PointSettings />
+            
+        </div>
+    )
 }

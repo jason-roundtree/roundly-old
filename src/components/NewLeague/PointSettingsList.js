@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PointSettingsModal from './PointSettingModal'
+import PointSettingsModal from '../League/PointSettingModal'
 import styled from 'styled-components'
 import trash from '../../images/trashCan.svg'
 
