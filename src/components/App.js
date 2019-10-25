@@ -55,7 +55,7 @@ function App() {
         {/* <Route path="/player-round/:playerId" component={PlayerRoundDetails} /> */}
         <Route path="/player-rounds/:playerId/round/:roundId" component={PlayerRoundDetails} />
         {/* TODO: add round and player id */}
-        <Route path="/player-scorecard" component={PlayerScorecard} />
+        <Route path="/player-scorecard/:playerId" component={PlayerScorecard} />
 
         <Route exact path='/callback' component={AuthCallback} />
       </div>

@@ -13,6 +13,9 @@ const Div = styled.div`
         padding: 0;
     }
 `
+const Checkbox = styled.input`
+    margin-right: 5px;
+`
 const Table = styled.table`
     margin-top: 20px;
     width: 70%;
@@ -39,13 +42,26 @@ const TdPlace = styled.td`
 
 export default function RoundSummary() {
     const sortedPlayersByPos = usePositionRank(data.pointsEarned)
-    // console.log('sortedPlayersByPos: ', sortedPlayersByPos)
+    const [trackPlayerScores, setTrackPlayerScores] = useState(true)
+    // console.log('trackPlayerScores: ', trackPlayerScores)
     return (
         <Div>
             <h2>Round Summary</h2>
             <h3>Course Name</h3>
             <h3>9/28/2019</h3>
-            
+
+            <Checkbox 
+                type="checkbox"
+                id="player-score-checkbox"
+                onClick={() => setTrackPlayerScores(!trackPlayerScores)}
+            />
+            <label htmlFor="player-score-checkbox">
+                {trackPlayerScores 
+                    ? "Don't Track Player Scores by Hole"
+                    : "Track Player Scores by Hole"
+                }
+            </label>  
+
             <Table>
                 <thead>
                     <tr>
@@ -54,6 +70,9 @@ export default function RoundSummary() {
                         {/* TODO: add funtionality that checks whether group wants to track scores/points by hole */}
                         <ThHoles>Holes Completed</ThHoles>
                         <Th>Round Point Total</Th>
+                        {trackPlayerScores && (
+                            <Th>Total Score</Th>
+                        )}
                     </tr>
                 </thead>
                 <tbody>
@@ -66,13 +85,16 @@ export default function RoundSummary() {
                             <tr key={player.playerId}>
                                 <TdPlace>{player.place}</TdPlace>
                                 <Td>
-                                    <Link to={`player-hole/${player.playerId}`}>
+                                    <Link to={`player-scorecard/${player.playerId}`}>
                                         {playerInfo.name}
                                     </Link>
                                 </Td>
                                 {/* TODO: update holes to use actual data */}
                                 <TdHoles className="holes-completed">8</TdHoles>
                                 <Td className="round-point-total">{player.points}</Td>
+                                {trackPlayerScores && (
+                                    <Td></Td>
+                                )}
                             </tr>
                         )}
                     )}
