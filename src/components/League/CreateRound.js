@@ -3,9 +3,13 @@ import useListItemToggle from '../../hooks/useListItemToggle'
 import useInput from '../../hooks/useInput'
 import styled from 'styled-components'
 import { 
+    FormControl, 
+    FormControlLabel,
+    FormLabel,
     InputLabel, 
     Input,
-    FormControl, 
+    Radio,
+    RadioGroup
 } from '@material-ui/core';
 import { styled as Mui_styled } from '@material-ui/styles'
 import { players } from '../../db'
@@ -43,7 +47,7 @@ const MuiFormControl = Mui_styled(FormControl)({
 export default function CreateRound() {
     const [activePlayers, setToggleActivePlayer] = useListItemToggle([])
     const [inputValues, setInputValue] = useInput({
-        roundDate: '', course: '', roundName: ''
+        roundDate: '', course: '', holesPlayed: '', roundName: ''
     })
 
     const [dateInputFocused, setInputFocus] = useState(false)
@@ -58,7 +62,7 @@ export default function CreateRound() {
     }
 
     // console.log('inputValues: ', inputValues)
-    console.log('activePlayers: ', activePlayers)
+    // console.log('activePlayers: ', activePlayers)
 
     return (
         <div>
@@ -66,6 +70,7 @@ export default function CreateRound() {
                 // TODO: setup axios post request
                 // onSubmit={}
             >
+                {/* TODO: maybe move these different controls to their own component */}
                 <h2>Create New Round</h2>
                 <MuiFormControl>
                     <InputLabel htmlFor="roundDate">Round Date</InputLabel>
@@ -101,7 +106,37 @@ export default function CreateRound() {
                         value={inputValues.roundName}
                     />
                 </MuiFormControl>
-                
+                <br />
+
+                {/* TODO: what to put for component? No value looks like I want it to, otherwise the label is inline instead of block */}
+                {/* TODO: if 9 holes is selected render section for entering the course's slope rating for that 9. (https://www.usga.org/articles/2014/07/only-time-for-nine-you-can-still-post-your-score-21474870775.html) */}
+                <MuiFormControl component="">
+                    <FormLabel 
+                        component="label"
+                        style={{marginTop: '20px'}}
+                    >
+                        Holes
+                    </FormLabel>
+                    <RadioGroup 
+                        aria-label="holesPlayed"
+                        name="holesPlayed" 
+                        value={inputValues.holesPlayed} 
+                        onChange={setInputValue}
+                    >
+                        <FormControlLabel 
+                            value="18" 
+                            control={<Radio color="primary" />} 
+                            label="18" 
+                        />
+
+                        <FormControlLabel 
+                            value="9" 
+                            control={<Radio color="primary" />} 
+                            label="9" 
+                        />
+                    </RadioGroup>
+                </MuiFormControl>
+
                 <P>Select Players to Activate for this Round</P>
                 <ul>
                     {players.map(player => {
