@@ -90,7 +90,12 @@ export default function RoundSummary() {
                     {trackNetScores && trackPlayerScores ? 'True' : 'False'}
                 </ToggleSpan>
             </ToggleP>
-            <ToggleButton onClick={() => setTrackNetScores(!trackNetScores)}>
+
+            <ToggleButton 
+                onClick={() => setTrackNetScores(!trackNetScores)}
+                disabled={trackPlayerScores === false}
+                className={trackPlayerScores === false ? 'disabledItem' : ''}
+            >
                 Toggle
             </ToggleButton>
 
@@ -107,7 +112,11 @@ export default function RoundSummary() {
                             <Th>Total Score</Th>
                         )}
                         {trackNetScores && trackPlayerScores && (
-                            <Th>Net Score</Th>
+                            <>
+                                <Th>Handicap</Th>
+                                <Th>Net Score</Th>
+                            </>
+                            
                         )}
                     </tr>
                 </thead>
@@ -121,18 +130,25 @@ export default function RoundSummary() {
                             <tr key={player.playerId}>
                                 <TdPlace>{player.place}</TdPlace>
                                 <Td>
-                                    <Link to={`player-scorecard/${player.playerId}`}>
+                                    <Link 
+                                        to={`player-scorecard/${player.playerId}?trackNet=${trackNetScores}`
+                                    }>
                                         {playerInfo.name}
                                     </Link>
                                 </Td>
                                 {/* TODO: update holes to use actual data */}
                                 <TdHoles className="holes-completed">8</TdHoles>
                                 <Td className="round-point-total">{player.points}</Td>
+
                                 {trackPlayerScores && (
                                     <Td></Td>
                                 )}
+
                                 {trackNetScores && trackPlayerScores && (
-                                    <Td></Td>
+                                    <>
+                                        <Td></Td>
+                                        <Td></Td>
+                                    </>
                                 )}
                             </tr>
                         )}
