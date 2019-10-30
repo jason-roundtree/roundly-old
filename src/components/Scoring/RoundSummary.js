@@ -60,7 +60,7 @@ export default function RoundSummary() {
     const [trackPlayerScores, setTrackPlayerScores] = useState(true)
     const [trackNetScores, setTrackNetScores] = useState(false)
     const [holesPlayed, setHolesPlayed] = useState('18')
-    // const [usgaChecked, setToggleUsgaCheck] = useState(false)
+    const [usgaChecked, setToggleUsgaCheck] = useState(false)
 
     function handleToggleScoreTracking() {
         if (trackNetScores) {
