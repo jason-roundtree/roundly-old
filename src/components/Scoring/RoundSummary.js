@@ -2,26 +2,31 @@ import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import usePositionRank from '../../hooks/usePositionRank'
 import styled from 'styled-components'
+import { 
+    Checkbox,
+    FormControl, 
+    FormControlLabel,
+    Radio,
+    RadioGroup,
+    Input,
+    InputLabel
+} from '@material-ui/core'
 import data from '../dummyData'
 
 const Div = styled.div`
-    /* width: 80%;
-    margin: 20px auto 0;
-    padding: 20px; */
     overflow-x: auto;
     @media (max-width: 700px) {
-        /* margin: 10px auto 0; */
         padding: 0;
     }
 `
-// const Checkbox = styled.input`
-//     margin-right: 5px;
-// `
-const ToggleP = styled.p`
-    display: inline-block;
-    /* vertical-align: bottom; */
+const SettingsP = styled.p`
+    display: inline;
     margin: 4px 10px 0 0;
     font-weight: 700;
+`
+const HandicapForNineP = styled.p`
+    font-style: italic;
+    font-size: .8em;
 `
 const ToggleSpan = styled.span`
     font-weight: 500;
@@ -44,21 +49,18 @@ const Th = styled.th`
     }
 `
 const Td = Th.withComponent('td')
-const TdHoles = styled(Td)`
-    @media (max-width: 700px) {
-        display: none;
-    }
-`
-const ThHoles = TdHoles.withComponent('th')
 const TdPlace = styled.td`
     font-weight: 500;
 `
-
+const FlexContainer = styled.div`
+    display: flex;
+`
 export default function RoundSummary() {
     const sortedPlayersByPos = usePositionRank(data.pointsEarned)
     const [trackPlayerScores, setTrackPlayerScores] = useState(true)
     const [trackNetScores, setTrackNetScores] = useState(false)
-    // console.log('trackPlayerScores: ', trackPlayerScores)
+    const [holesPlayed, setHolesPlayed] = useState('18')
+    // const [usgaChecked, setToggleUsgaCheck] = useState(false)
 
     function handleToggleScoreTracking() {
         if (trackNetScores) {
@@ -73,50 +75,109 @@ export default function RoundSummary() {
             <h3>Course Name</h3>
             <h3>9/28/2019</h3>
 
-            <ToggleP>
+            <SettingsP>
                 Tracking Player Hole-by-Hole Scores: {' '}
                 <ToggleSpan>
                     {trackPlayerScores ? 'True' : 'False'}
                 </ToggleSpan>
-            </ToggleP>
+            </SettingsP>
             <ToggleButton onClick={() => handleToggleScoreTracking()}>
                 Toggle
             </ToggleButton>
             <br />
 
-            <ToggleP>
+            <SettingsP>
                 Tracking Net Scores: {' '}
                 <ToggleSpan>
                     {trackNetScores && trackPlayerScores ? 'True' : 'False'}
                 </ToggleSpan>
-            </ToggleP>
-
+            </SettingsP>
             <ToggleButton 
                 onClick={() => setTrackNetScores(!trackNetScores)}
                 disabled={trackPlayerScores === false}
-                className={trackPlayerScores === false ? 'disabledItem' : ''}
+                className={trackPlayerScores === false 
+                    ? 'disabledItem' 
+                    : ''
+                }
             >
                 Toggle
             </ToggleButton>
+            <br />
+            
+            <FlexContainer>
+                <SettingsP>Holes: {' '}</SettingsP>
+                <FormControl>
+                    <RadioGroup 
+                        aria-label="holesPlayed"
+                        name="holesPlayed" 
+                        value={holesPlayed} 
+                        onChange={e => setHolesPlayed(e.target.value)}
+                    >
+                        <FormControlLabel 
+                            value="18" 
+                            control={<Radio color="primary" />} 
+                            label="18" 
+                        />
 
-            {/* TODO: work some more responsiveness in here */}
+                        <FormControlLabel 
+                            value="9" 
+                            control={<Radio color="primary" />} 
+                            label="9" 
+                        />
+                    </RadioGroup>
+                </FormControl>
+            </FlexContainer>
+
+            {/* TODO: is this the right way to go about tracking net scores for 9 holed? */}
+            {holesPlayed === '9' && (
+                <>
+                    <HandicapForNineP>
+                        If you would like the handicaps for 9 holes to be calculated according to <a href="https://www.usga.org/articles/2014/07/only-time-for-nine-you-can-still-post-your-score-21474870775.html" target="_blank">USGA specifications</a> please check the following box and then enter the USGA slope rating for the 9 holes being played. Otherwise, 9 hole net scores will be calculated as half of the full 18 hole handicaps.
+                    </HandicapForNineP>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={usgaChecked}
+                                onChange={() => setToggleUsgaCheck(!usgaChecked)}
+                                value="checked"
+                                color="primary"
+                            />
+                        }
+                        label="Calculate 9 Hole Handicap According to USGA:"
+                        labelPlacement="start"
+                    />
+                    <br />
+
+                    {usgaChecked && (
+                        <FormControl
+                            style={{marginLeft: '16px', marginTop: '-8px'}}
+                        >
+                            <InputLabel htmlFor="usga-rating">9 Hole Rating</InputLabel>
+                            <Input id="usga-rating" type="number" style={{padding: '0px'}} />
+                        </FormControl>
+                    )}
+                </>
+            )}
+
+
+            {/* TODO: work some more responsiveness in here, particularly with the first couple of columns to stay static while the rest drag */}
             <Table>
                 <thead>
                     <tr>
                         <Th>Place</Th>
                         <Th>Player</Th>
-                        {/* TODO: add funtionality that checks whether group wants to track scores/points by hole */}
-                        <ThHoles>Holes Completed</ThHoles>
+                        <Th>Holes</Th>
                         <Th>Round Point Total</Th>
+
                         {trackPlayerScores && (
                             <Th>Total Score</Th>
                         )}
+
                         {trackNetScores && trackPlayerScores && (
                             <>
                                 <Th>Handicap</Th>
                                 <Th>Net Score</Th>
                             </>
-                            
                         )}
                     </tr>
                 </thead>
@@ -137,7 +198,7 @@ export default function RoundSummary() {
                                     </Link>
                                 </Td>
                                 {/* TODO: update holes to use actual data */}
-                                <TdHoles className="holes-completed">8</TdHoles>
+                                <Td>8</Td>
                                 <Td className="round-point-total">{player.points}</Td>
 
                                 {trackPlayerScores && (
