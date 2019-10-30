@@ -129,7 +129,7 @@ export default function RoundSummary() {
             </FlexContainer>
 
             {/* TODO: is this the right way to go about tracking net scores for 9 holed? */}
-            {holesPlayed === '9' && (
+            {holesPlayed === '9' && trackNetScores && (
                 <>
                     <HandicapForNineP>
                         If you would like the handicaps for 9 holes to be calculated according to <a href="https://www.usga.org/articles/2014/07/only-time-for-nine-you-can-still-post-your-score-21474870775.html" target="_blank">USGA specifications</a> please check the following box and then enter the USGA slope rating for the 9 holes being played. Otherwise, 9 hole net scores will be calculated as half of the full 18 hole handicaps.
